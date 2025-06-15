@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="formulaire.css">
+    <title>Connexion</title>
+</head>
+<header>
+</header>
+<body>
+    <main>
+        <div class="d1">
+            <form method="get" action="#" name="monFormulaire" target="_blank" autocomplete="on" enctype="" id="formConnexion">
+                <h1>CONNEXION</h1>
+                <div class="inp">
+                <input id="email" name="email" type="email" placeholder="Email" required>
+                </div>
+                <div class="inp">
+                    <input name="MotDePasse" type="password" id="motdepasse" placeholder="Mot de passe" required>
+                </div>
+                <div>
+                    <a href="#">Mot de passe oublié?</a>
+                </div>
+                <button type="submit">Connexion</button>
+            </form>
+        </div>
+    </main>
+</body>
+<footer>
+
+</footer>
+<script>
+    document.getElementById('formConnexion').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const motdepasse = document.getElementById('motdepasse').value;
+
+  const res = await fetch('http://localhost:5000/api/auth/connexion', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, motdepasse })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  if (res.ok) {
+    // Stocker le token reçu dans le localStorage pour les futures requêtes
+    localStorage.setItem('token', data.token);
+
+    const decoded = jwt_decode(data.token);
+    const role = decoded.role;
+
+    // Redirection selon rôle
+    if (role === 'admin') {
+      window.location.href = 'tbadmin.html';
+    } else if (role === 'biblio') {
+      window.location.href = 'tbbiblio.html';
+    } else {
+      window.location.href = 'tbperso.html';
+    }
+  } else {
+    alert(data.message);
+  }
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
+</html>

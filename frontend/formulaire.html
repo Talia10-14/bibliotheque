@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<htm lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="formulaire.css">
+    <title>Inscription</title>
+</head>
+<header>
+
+</header>
+<body>
+    <main>
+        <div class="d1">
+            <form method="post" action="http://www.foo.com" name="monFormulaire" autocomplete="on" id="inscription">
+                <h1>INSCRIPTION</h1>
+                <div class="inp">
+                    <input id="name" name="username" type="text" placeholder="Entrer votre nom">
+                </div>
+                <div class="inp">
+                    <input id="firstname" name="userfirst" type="text" placeholder="Entrer vos prénoms">
+                </div>
+                <div class="inp">
+                    <div class="inp">
+                    <input id="email" name="email" type="email" placeholder="Entrer votre email">
+                    </div>
+                    <input name="MotDePasse" type="password" placeholder="Créer un mot de passe" id = "motDePasse">
+                </div>
+                <div class="inp">
+                    <input name="MotDePasse" type="password" placeholder="Confirme le mot de passe" id="mdp">
+                </div>
+                <button class="button" type="submit">Inscrivez-vous</button>
+                <div class="register">
+                    
+                        Vous avez déjà un compte?
+                        <a href="connexion.html">Connectez-Vous</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+<footer>
+
+</footer>
+<script>
+    document.getElementById('inscription').addEventListener('submit', async(e) =>{
+        e.preventDefault();
+        let nom = document.getElementById('name').value;
+        let prenom = document.getElementById('firstname').value;
+        let motdepasse = document.getElementById('motDePasse').value;
+        let email = document.getElementById('email').value;
+        let confirmation = document.getElementById('mdp').value;
+
+        if (confirmation !== motDePasse) {
+            alert("Vous n'avez pas entrez le même mot de passe.")
+        }
+        const response = await fetch('http://localhost:5000/api/auth/inscription', {
+    method: 'POST',
+    headers: { 
+        'Authorization':'Bearer'+token,
+        'Content-Type': 'application/json' },
+    body: JSON.stringify({ nom,prenom, email, motdepasse })
+  });
+
+  const data = await response.json();
+  alert(data.message);
+    });
+</script>
+</htm>

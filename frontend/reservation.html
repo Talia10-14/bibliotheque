@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="formulaire.css"> -->
+    <title>Réservation de Livre</title>
+</head>
+
+<body>
+    <style>
+        /* Style général */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #b6f6f6, #b542c6);
+
+}
+
+main {
+    width: 100%;
+    max-width: 500px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    text-align: center;
+}
+
+.form-container h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    gap: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #8800ff;
+    outline: none;
+}
+
+/* Boutons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-group .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-group .btn.reset {
+    background-color: #ddd;
+    color: #333;
+}
+
+.button-group .btn.reset:hover {
+    background-color: #bbb;
+}
+
+.button-group .btn.submit {
+    background-color: #8800ff;
+    color: #fff;
+}
+
+.button-group .btn.submit:hover {
+    background-color: #7700e6;
+}
+    </style>
+    <main>
+        <div class="form-container">
+            <h1>Réservation de Livre</h1>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input type="text" id="titre" name="titre" placeholder="Entrez le titre du livre" required>
+                </div>
+                <div class="form-group">
+                    <label for="auteur">Auteur</label>
+                    <input type="text" id="auteur" name="auteur" placeholder="Entrez le nom de l'auteur">
+                </div>
+                <div class="form-group">
+                    <label for="edition">Édition</label>
+                    <input type="text" id="edition" name="edition" placeholder="Entrez l'édition">
+                </div>
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" id="isbn" name="isbn" placeholder="Entrez le numéro ISBN">
+                </div>
+                <div class="form-group">
+                    <label for="editeur">Éditeur</label>
+                    <input type="text" id="editeur" name="editeur" placeholder="Entrez le nom de l'éditeur">
+                </div>
+                <div class="form-group">
+                    <label for="discipline">Discipline/Thématique</label>
+                    <input type="text" id="discipline" name="discipline" placeholder="Entrez la discipline ou thématique" required>
+                </div>
+                <div class="button-group">
+                    <button type="reset" class="btn reset">Rafraîchir</button>
+                    <button type="submit" class="btn submit">Envoyer la demande</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
