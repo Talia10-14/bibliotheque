@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="tbperso.css">
 </head>
+
 <body>
 
     <header>
@@ -15,105 +17,107 @@
             <span>Bibliotech</span>
         </div>
         <span>Tableau de bord Personnel</span>
-        <a href="accueil.html">Accueil</a>
-        <button id="logoutBtn">Déconnexion</button>
+
 
     </header>
-    <main>
-        <!-- Message de bienvenue -->
-        <section>
-            <p>Voici un aperçu de vos informations et activités récentes.</p>
-        </section>
-
-        <!-- Statistiques utilisateur -->
-        <section>
-            <h3>Statistiques</h3>
-            <ul id="user-stats">
-                <li>Nombre de livres empruntés : <span id="borrowed-count">0</span></li>
-                <li>Nombre de livres en retard : <span id="overdue-count">0</span></li>
-                <li>Prochains retours à faire : <span id="next-returns">Aucun</span></li>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="accueil.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Tableau de bord</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#statistiques">Statistiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#historiques-emprunts">Historiques des Emprunts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#actions-rapides">Actions Rapides</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#reservations">Réservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="livres.html">Livre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logoutBtn" href="#">Déconnexion</a>
+                </li>
             </ul>
-        </section>
+        </aside>
+        <main class="main-content">
+            <section>
+                <p>Voici un aperçu de vos informations et activités récentes.</p>
+            </section>
 
-        <!-- Historique des emprunts -->
-        <section>
-            <h3>Historique des Emprunts</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Livre</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-                <tbody id="borrow-history">
-                    <!-- Historique injecté dynamiquement -->
-                </tbody>
-            </table>
-        </section>
+            <section>
+                <h3 id="statistiques">Statistiques</h3>
+                <ul id="user-stats">
+                    <li>Nombre de livres empruntés : <span id="borrowed-count">0</span></li>
+                    <li>Nombre de livres en retard : <span id="overdue-count">0</span></li>
+                    <li>Prochains retours à faire : <span id="next-returns">Aucun</span></li>
+                </ul>
+            </section>
 
-        <section>
-            <h3>Mes Livres Téléchargés</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Livre</th>
-                        <th>Date de Téléchargement</th>
-                    </tr>
-                </thead>
-                <tbody id="downloaded-books">
-                    <!-- Livres téléchargés injectés dynamiquement -->
-                </tbody>
-            </table>
-        </section>
+            <section>
+                <h3 id="historiques-emprunts">Historique des Emprunts</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Livre</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="borrow-history">
+                    </tbody>
+                </table>
+            </section>
 
-        <!-- Actions rapides -->
-        <section>
-            <h3>Actions Rapides</h3>
-            <div id="quick-actions">
-                <button onclick="redirectTo('books')">Emprunter un livre</button>
-                <button onclick="redirectTo('my-borrows')">Voir mes emprunts</button>
-                <button onclick="redirectTo('extend-loan')">Prolonger un emprunt</button>
-            </div>
-            <p id="notification" style="color: red; display: none;">Un livre réservé est disponible !</p>
-        </section>
+            <section>
+                <h3 id="actions-rapides">Actions Rapides</h3>
+                <div id="quick-actions">
+                    <button onclick="location.href='livres.html'">Emprunter un livre</button>
+                    <button onclick="redirectTo('extend-loan')">Prolonger un emprunt</button>
+                </div>
+                <p id="notification" style="color: red; display: none;">Un livre réservé est disponible !</p>
+            </section>
 
-        <!-- Mes réservations -->
-        <section>
-            <h3>Mes Réservations</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Livre</th>
-                        <th>État</th>
-                    </tr>
-                </thead>
-                <tbody id="reservations">
-                    <!-- Réservations injectées dynamiquement -->
-                </tbody>
-            </table>
-        </section>
+            <section>
+                <h3 id="reservations">Mes Réservations</h3>
+                <table>
 
-       
-    </main>
+                    <tbody id="reservations">
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
     <footer class="footer">
         <div class="footer-logo">
             <i class="fas fa-book-open"></i>
             <span>Bibliotech</span>
         </div>
         <p>© 2023 BiblioTech. Tous droits réservés.</p>
-        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de confidentialité</a></p>
+        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de
+                confidentialité</a></p>
     </footer>
 
-   <script>
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-  // Supprimer le token du localStorage
-  localStorage.removeItem('token');
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // Supprimer le token du localStorage
+            localStorage.removeItem('token');
 
-  // Rediriger vers la page de connexion
-  window.location.href = 'connexion.html';
-});
+            // Rediriger vers la page de connexion
+            window.location.href = 'connexion.html';
+        });
 
-   </script>
+    </script>
 </body>
+
 </html>

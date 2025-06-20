@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Personnel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="tbperso.css">
+    <link rel="stylesheet" href="livres.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <span>Bibliotech</span>
+        </div>
+        <span>Tableau de bord Personnel</span>
+        
+
+    </header>
+<div class="dashboard-layout">
+     <aside class="sidebar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="accueil.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Statistiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Historiques des Emprunts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Actions Rapides</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Réservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="livres.html">Livre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logoutBtn" href="#">Déconnexion</a>
+                </li>
+            </ul>
+        </aside>
+    <main class="main-content">
+        
+        <div class="search-box">
+                <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
+                <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+            </div>
+    <section class="categories">
+        <div class="category-selects">
+            <div class="filters ">
+                <button id="all-categories-button">Toutes les catégories</button>
+            </div>
+            <div class="category-group">
+                <select id="sciences">
+                    <option value="">Science</option>
+                    <option value="mathematiques">Mathématiques</option>
+                    <option value="physique">Physique</option>
+                    <option value="chimie">Chimie</option>
+                    <option value="biologie">Biologie</option>
+                    <option value="astronomie">Astronomie</option>
+                    <option value="ecologie">Écologie</option>
+                </select>
+            </div>
+            <div class="category-group">
+                <select id="technologie">
+                    <option value="" disabled selected>Technologie</option>
+                    <option value="informatique">Informatique</option>
+                    <option value="robotique">Robotique</option>
+                    <option value="intelligence-artificielle">Intelligence Artificielle</option>
+                    <option value="cybersecurite">Cybersécurité</option>
+                    <option value="big-data">Big Data</option>
+                    <option value="blockchain">Blockchain</option>
+                </select>
+            </div>
+            <div class="category-group">
+                <select id="arts">
+                    <option value="" disabled selected>Arts</option>
+                    <option value="musique">Musique</option>
+                    <option value="cinema">Cinéma</option>
+                    <option value="theatre">Théâtre</option>
+                    <option value="photographie">Photographie</option>
+                    <option value="danse">Danse</option>
+                    <option value="architecture">Architecture</option>
+                </select>
+            </div>
+            <div class="category-group">
+                <select id="autres">
+                    <option value="" disabled selected>Autres</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="finance">Finance</option>
+                    <option value="comptabilite">Comptabilité</option>
+                    <option value="entrepreneuriat">Entrepreneuriat</option>
+                    <option value="gestion-de-projet">Gestion de Projet</option>
+                    <option value="ressources-humaines">Ressources Humaines</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="livres-section">
+  <h2>Livres disponibles</h2>
+  <div class="livres-container">
+    <div class="livre-card">
+      <img src="https://via.placeholder.com/150x200" alt="Couverture  du Livre ">
+      <h3>Titre </h3>
+      <p class="auteur">Auteur : Jean Dupont</p>
+      <p class="description">Ce livre explore les mystères de l'univers à travers une aventure palpitante.</p>
+      <button>Emprunter</button>
+    </div>
+    <div class="livre-card">
+      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
+      <h3>Titre </h3>
+      <p class="auteur">Auteur : Marie Curie</p>
+      <p class="description">Une introduction à la science moderne, accessible à tous.</p>
+      <button>Emprunter</button>
+    </div>
+    <div class="livre-card">
+      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
+      <h3>Titre </h3>
+      <p class="auteur">Auteur : Albert Camus</p>
+      <p class="description">Un classique de la philosophie moderne sur l'absurde et la condition humaine.</p>
+      <button>Emprunter</button>
+    </div>
+    <div class="livre-card">
+      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
+      <h3>Titre </h3>
+      <p class="auteur">Auteur : Jules Verne</p>
+      <p class="description">Voyage extraordinaire au cœur des terres inexplorées du XIXe siècle.</p>
+      <button>Emprunter</button>
+    </div>
+    <div class="livre-card">
+      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
+      <h3>Titre </h3>
+      <p class="auteur">Auteur : Victor Hugo</p>
+      <p class="description">Un roman bouleversant sur la misère, l'espoir et la justice sociale.</p>
+      <button>Emprunter</button>
+    </div>
+  </div>
+</section>
+
+    </main>
+     </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="fas fa-book-open"></i>
+            <span>Bibliotech</span>
+        </div>
+        <p>© 2023 BiblioTech. Tous droits réservés.</p>
+        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de confidentialité</a></p>
+    </footer>
+
+   <script>
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+  // Supprimer le token du localStorage
+  localStorage.removeItem('token');
+
+  // Rediriger vers la page de connexion
+  window.location.href = 'connexion.html';
+});
+
+   </script>
+</body>
+</html>

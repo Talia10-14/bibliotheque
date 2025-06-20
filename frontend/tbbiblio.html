@@ -18,15 +18,15 @@
             <span>Bibliotech</span>
         </div>
         <span>Tableau de bord - Bibliothécaire</span>
-
-        <button id="logoutBtn">Déconnexion</button>
-        (Gestion tableau de bord administrateur)
     </header>
     <div class="dashboard-layout">
         <aside class="sidebar">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="accueil.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tbbiblio.html">Tableau de bord</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#statistiques">Statistiques</a>
@@ -40,19 +40,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="livre.html">Livre</a>
                 </li>
+                <li class="nav-item">
+                    <button onclick="location.href='ajouter-livre.html'">Ajouter un nouveau livre</button>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logoutBtn" href="#">Déconnexion</a>
+                </li>
             </ul>
         </aside>
 
         <main class="main-content">
             <section id="statistiques">
                 <h2>Statistiques Générales</h2>
-                <ul>
-                    <li>Nombre de livres en circulation : <span id="livres-circulation">0</span></li>
-                    <li>Emprunts du jour : <span id="emprunts-jour">0</span></li>
-                    <li>Emprunts de la semaine : <span id="emprunts-semaine">0</span></li>
-                    <li>Livres en retard : <span id="livres-retard">0</span></li>
-                    <li>Nouveaux inscrits : <span id="nouveaux-inscrits">0</span></li>
-                </ul>
+                <div class="chart-container">
+                    <canvas id="myPieChart" width="800" height="800"></canvas>
+                </div>
             </section>
 
             <section id="gestion-utilisateurs">
@@ -72,7 +75,6 @@
 
             <section id="actions">
                 <h2>Actions</h2>
-                <button onclick="location.href='ajouter-livre.html'">Ajouter un nouveau livre</button>
                 <button onclick="location.href='gerer-retours.html'">Gérer les retours</button>
                 <button onclick="location.href='gerer-reservations.html'">Gérer les réservations</button>
             </section>
@@ -88,7 +90,8 @@
         <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de
                 confidentialité</a></p>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="tb.js"></script>
     <script>
         // Exemple de données dynamiques
         const statsData = {
@@ -135,7 +138,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>

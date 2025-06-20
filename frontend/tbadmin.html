@@ -1,225 +1,249 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord - Administrateur</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="tbadmin.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord - Administrateur</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="tbadmin.css">
 </head>
+
 <body>
 
-    <header>
-        <div class="logo">
-            <i class="fas fa-book-open"></i> 
-            <span>Bibliotech</span>
-        </div>
-        <span>Tableau de bord - Administrateur</span>
-        <button id="logoutBtn">Déconnexion</button>
-       
-    </header>
+  <header>
+    <div class="logo">
+      <i class="fas fa-book-open"></i>
+      <span>Bibliotech</span>
+    </div>
+    <span>Tableau de bord - Administrateur</span>
 
-    <main>
-        
+  </header>
+
+  <main>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="accueil.html">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tbadmin.html">Tableau de bord</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#statistiques">Statistiques</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gestion-utilisateurs">Gestion des utilisateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#actions">Actions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="livre.html">Livre</a>
+          </li>
+          <li class="nav-item">
+            <button onclick="ouvrirModal('modal-ajouter-livre')">ajouter un nouveau livre</button>
+          </li>
+          <li class="nav-item">
+            <button onclick="ouvrirModal('modal-ajouter-bibliothecaire')">Ajouter un bibliothécaire</button>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="logoutBtn" href="#">Déconnexion</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main-content">
+
+        <!-- Section 1 : Statistiques générales -->
         <section id="statistiques">
-            <h2>Statistiques Générales</h2>
-            <ul>
-                <li>Nombre de livres en circulation : <span id="livres-circulation">0</span></li>
-                <li>Emprunts du jour : <span id="emprunts-jour">0</span></li>
-                <li>Emprunts de la semaine : <span id="emprunts-semaine">0</span></li>
-                <li>Livres en retard : <span id="livres-retard">0</span></li>
-                <li>Nouveaux inscrits : <span id="nouveaux-inscrits">0</span></li>
-            </ul>
+          <h2>Statistiques Générales</h2>
+          <div class="chart-container">
+            <canvas id="myPieChart" width="800" height="800"></canvas>
+          </div>
+
         </section>
 
-        <!-- Section 2 : Gestion des utilisateurs -->
-        <section id="gestion-utilisateurs">
-            <h2>Gestion des Utilisateurs</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Statut d'adhésion</th>
-                    </tr>
-                </thead>
-                <tbody id="liste-membres">
-                    <!-- Liste des membres injectée dynamiquement -->
-                </tbody>
-            </table>
-        </section>
+
 
         <!-- Section 3 : Actions -->
         <section id="actions">
-            <h2>Actions</h2>
-            <button onclick="ouvrirModal('modal-ajouter-livre')" >ajouter un nouveau livre</button>
-            <button onclick="location.href='gerer-retours.html'">Gérer les retours</button>
-            <button onclick="location.href='gerer-reservations.html'">Gérer les réservations</button>
+          <h2>Actions</h2>
+          <button onclick="location.href='gerer-retours.html'">Gérer les retours</button>
+          <button onclick="location.href='gerer-reservations.html'">Gérer les réservations</button>
         </section>
 
         <!-- Section 4 : Gestion du personnel -->
         <section id="gestion-personnel">
-            <h2>Gestion du Personnel</h2>
-            <button onclick="ouvrirModal('modal-ajouter-bibliothecaire')">Ajouter un bibliothécaire</button>
-            <button onclick="location.href='modifier-bibliothecaire.html'">Modifier un bibliothécaire</button>
-            <button onclick="location.href='supprimer-bibliothecaire.html'">Supprimer un bibliothécaire</button>
-            <button onclick="location.href='roles-permissions.html'">Définir des rôles et permissions</button>
+          <h2>Gestion du Personnel</h2>
+          <button onclick="location.href='modifier-bibliothecaire.html'">Modifier un bibliothécaire</button>
+          <button onclick="location.href='supprimer-bibliothecaire.html'">Supprimer un bibliothécaire</button>
+          <button onclick="location.href='roles-permissions.html'">Définir des rôles et permissions</button>
         </section>
 
-<div id="modal-ajouter-livre" class="modal hidden ">
-    <div class="modal-content">
-      <h3>Ajouter un Livre</h3>
-      <form id="form-ajouter-livre">
-        <input type="text" name="titre" placeholder="Titre du livre" required>
-        <input type="text" name="auteur" placeholder="Auteur" required>
-        <textarea name="description" id="description" placeholder="Description"></textarea>
-        <label for="categorie">Catégorie :</label>
-        <select id="categorie" name="categorie" required>
-          <option value="">-- Sélectionnez une catégorie --</option>
-          <option value="roman">Roman</option>
-          <option value="science">Science</option>
-          <option value="histoire">Histoire</option>
-          <option value="biographie">Biographie</option>
-          <option value="informatique">Informatique</option>
-        </select>
-      
-        <input type="file" name="ficher" id="ficher" required>
-        <input type="text" name="isbn" placeholder="ISBN (optionnel)">
-        <input type="text" name="edition"  placeholder="Édition (optionnel)">
-        <div>
-            <input type="checkbox" name="disponible" id="disponible" checked>
-            <label for="disponible">Disponible</label>
-        </div>
-        <button type="submit">Ajouter</button>
-        <button type="button" onclick="fermerModal('modal-ajouter-livre')">Annuler</button>
-      </form>
+        <<<<<<< HEAD=======<!-- Modal pour Ajouter un Livre -->
+          >>>>>>> f18d00e (Modif)
+          <div id="modal-ajouter-livre" class="modal hidden ">
+            <div class="modal-content">
+              <h3>Ajouter un Livre</h3>
+              <form id="form-ajouter-livre">
+                <input type="text" name="titre" placeholder="Titre du livre" required>
+                <input type="text" name="auteur" placeholder="Auteur" required>
+                <textarea name="description" id="description" placeholder="Description"></textarea>
+                <label for="categorie">Catégorie :</label>
+                <select id="categorie" name="categorie" required>
+                  <option value="">-- Sélectionnez une catégorie --</option>
+                  <option value="roman">Roman</option>
+                  <option value="science">Science</option>
+                  <option value="histoire">Histoire</option>
+                  <option value="biographie">Biographie</option>
+                  <option value="informatique">Informatique</option>
+                </select>
+
+                <input type="file" name="ficher" id="ficher" required>
+                <input type="text" name="isbn" placeholder="ISBN (optionnel)">
+                <input type="text" name="edition" placeholder="Édition (optionnel)">
+                <div>
+                  <input type="checkbox" name="disponible" id="disponible" checked>
+                  <label for="disponible">Disponible</label>
+                </div>
+                <button type="submit">Ajouter</button>
+                <button type="button" onclick="fermerModal('modal-ajouter-livre')">Annuler</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Modal pour Ajouter un Bibliothécaire -->
+          <div id="modal-ajouter-bibliothecaire" class="modal hidden">
+            <div class="modal-content">
+              <h3>Ajouter un Bibliothécaire</h3>
+              <form id="form-ajouter-bibliothecaire">
+                <input type="text" placeholder="Nom complet" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Rôle" required>
+                <button type="submit">Ajouter</button>
+                <button type="button" onclick="fermerModal('modal-ajouter-bibliothecaire')">Annuler</button>
+              </form>
+            </div>
+          </div>
+
+      </main>
     </div>
-  </div>
-  
-  <!-- Modal pour Ajouter un Bibliothécaire -->
-  <div id="modal-ajouter-bibliothecaire" class="modal hidden">
-    <div class="modal-content">
-      <h3>Ajouter un Bibliothécaire</h3>
-      <form id="form-ajouter-bibliothecaire">
-        <input type="text" placeholder="Nom complet" required>
-        <input type="email" placeholder="Email" required>
-        <input type="text" placeholder="Rôle" required>
-        <button type="submit">Ajouter</button>
-        <button type="button" onclick="fermerModal('modal-ajouter-bibliothecaire')">Annuler</button>
-      </form>
-    </div>
-  </div>
-  
-    </main>
     <footer class="footer">
-        <div class="footer-logo">
-            <i class="fas fa-book-open"></i>
-            <span>Bibliotech</span>
-        </div>
-        <p>© 2023 BiblioTech. Tous droits réservés.</p>
-        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de confidentialité</a></p>
+      <div class="footer-logo">
+        <i class="fas fa-book-open"></i>
+        <span>Bibliotech</span>
+      </div>
+      <p>© 2023 BiblioTech. Tous droits réservés.</p>
+      <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de
+          confidentialité</a></p>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="tb1.js"></script>
     <script>
-        function ouvrirModal(id) {
-   const element= document.getElementById(id)
-    console.log(element);
-    element.style.display="block"
-    
-}
+      function ouvrirModal(id) {
+        const element = document.getElementById(id)
+        console.log(element);
+        element.style.display = "block"
 
-function fermerModal(id) {
-    const element= document.getElementById(id)
-    console.log(element);
-    element.style.display="none"
-}
-const form = document.getElementById('form-ajouter-livre');
+      }
 
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-    const formData = new FormData(form);
-  console.log("form",formData);
-  formData.values
+      function fermerModal(id) {
+        const element = document.getElementById(id)
+        console.log(element);
+        element.style.display = "none"
+      }
+      const form = document.getElementById('form-ajouter-livre');
 
-  const livre = {
-    titre: formData.get('titre'),
-    auteur: formData.get('auteur'),
-    description: formData.get('description'),
-    categorie: formData.get('categorie'),
-    ficher: formData.get('ficher'),
-    isbn: formData.get('isbn'),
-    edition: formData.get('edition')
-  };
-  console.log("livre" ,livre);
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        console.log("form", formData);
+        formData.values
 
-  
-  
-  try {
-    const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:5000/api/livres', { 
-      method: 'POST',
-      headers: {'Content-Type': 'application/json',
-        'Authorization': `Bearer `+ token
-      },
-      body: JSON.stringify(livre)
-    });
-    
-    if (!res.ok) throw new Error('Erreur lors de l\'ajout');
-    
-    alert('Livre ajouté avec succès !');
-    form.reset();
-    
-  } catch (err) {
-    alert(err.message);
-  }
-});
-        // Exemple de données dynamiques
-        const statsData = {
-            livresCirculation: 250,
-            empruntsJour: 15,
-            empruntsSemaine: 75,
-            livresRetard: 10,
-            nouveauxInscrits: 5
+        const livre = {
+          titre: formData.get('titre'),
+          auteur: formData.get('auteur'),
+          description: formData.get('description'),
+          categorie: formData.get('categorie'),
+          ficher: formData.get('ficher'),
+          isbn: formData.get('isbn'),
+          edition: formData.get('edition')
         };
+        console.log("livre", livre);
 
-        const membresData = [
-            { nom: "Jean Dupont", email: "jean.dupont@example.com", statut: "Actif" },
-            { nom: "Marie Curie", email: "marie.curie@example.com", statut: "Suspendu" },
-            { nom: "Albert Einstein", email: "albert.einstein@example.com", statut: "Actif" }
-        ];
 
-        // Injecter les statistiques
-        document.getElementById("livres-circulation").textContent = statsData.livresCirculation;
-        document.getElementById("emprunts-jour").textContent = statsData.empruntsJour;
-        document.getElementById("emprunts-semaine").textContent = statsData.empruntsSemaine;
-        document.getElementById("livres-retard").textContent = statsData.livresRetard;
-        document.getElementById("nouveaux-inscrits").textContent = statsData.nouveauxInscrits;
 
-        // Injecter la liste des membres
-        const listeMembres = document.getElementById("liste-membres");
-        membresData.forEach(membre => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
+        try {
+          const token = localStorage.getItem('token');
+          const res = await fetch('http://localhost:5000/api/livres', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ` + token
+            },
+            body: JSON.stringify(livre)
+          });
+
+          if (!res.ok) throw new Error('Erreur lors de l\'ajout');
+
+          alert('Livre ajouté avec succès !');
+          form.reset();
+
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+      // Exemple de données dynamiques
+      const statsData = {
+        livresCirculation: 250,
+        empruntsJour: 15,
+        empruntsSemaine: 75,
+        livresRetard: 10,
+        nouveauxInscrits: 5
+      };
+
+      const membresData = [
+        { nom: "Jean Dupont", email: "jean.dupont@example.com", statut: "Actif" },
+        { nom: "Marie Curie", email: "marie.curie@example.com", statut: "Suspendu" },
+        { nom: "Albert Einstein", email: "albert.einstein@example.com", statut: "Actif" }
+      ];
+
+      // Injecter les statistiques
+      document.getElementById("livres-circulation").textContent = statsData.livresCirculation;
+      document.getElementById("emprunts-jour").textContent = statsData.empruntsJour;
+      document.getElementById("emprunts-semaine").textContent = statsData.empruntsSemaine;
+      document.getElementById("livres-retard").textContent = statsData.livresRetard;
+      document.getElementById("nouveaux-inscrits").textContent = statsData.nouveauxInscrits;
+
+      // Injecter la liste des membres
+      const listeMembres = document.getElementById("liste-membres");
+      membresData.forEach(membre => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
                 <td>${membre.nom}</td>
                 <td>${membre.email}</td>
                 <td>${membre.statut}</td>
             `;
-            listeMembres.appendChild(row);
-        });
+        listeMembres.appendChild(row);
+      });
 
-        // Fonction pour générer des rapports
-        function genererRapport(type) {
-            alert(`Génération d'un rapport au format ${type.toUpperCase()}`);
-            // Ajoutez ici la logique pour générer le rapport
-        }
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-  // Supprimer le token du localStorage
-  localStorage.removeItem('token');
+      // Fonction pour générer des rapports
+      function genererRapport(type) {
+        alert(`Génération d'un rapport au format ${type.toUpperCase()}`);
+        // Ajoutez ici la logique pour générer le rapport
+      }
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        // Supprimer le token du localStorage
+        localStorage.removeItem('token');
 
-  // Rediriger vers la page de connexion
-  window.location.href = 'connexion.html';
-});
+        // Rediriger vers la page de connexion
+        window.location.href = 'connexion.html';
+      });
 
     </script>
 </body>
+
 </html>

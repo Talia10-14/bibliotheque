@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="livre.css">
+    <link rel="stylesheet" href="tbadmin.css">
     <title>Nos livres disponible</title>
 </head>
 
@@ -36,9 +37,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="livre.html">Livre</a>
                     </li>
+                     <li class="nav-item">
+                     <button onclick="ouvrirModal('modal-ajouter-livre')" >ajouter un nouveau livre</button>
+                </li>
                 </ul>
             </aside>
             <main>
+
+        <div class="search-box">
+                <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
+                <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+            </div>
                 <div class="d3">
                     <div class="div1">
                         <div class="d2">
@@ -46,7 +55,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -54,7 +63,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -62,7 +71,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -70,7 +79,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -78,7 +87,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -86,7 +95,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -94,7 +103,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -102,7 +111,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -110,7 +119,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -118,7 +127,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -126,7 +135,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                         <div class="d2">
@@ -134,7 +143,7 @@
                             <h3>Nom du livre</h3>
                             <p><strong>Auteur :</strong> Bla Bla</p>
                             <p><strong>Catégorie :</strong> Drame</p>
-                            <button>Ajouter</button>
+                            <button>Modifier</button>
                             <button>Supprimer</button>
                         </div>
                     </div>
@@ -171,7 +180,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -187,7 +196,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -203,7 +212,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -219,7 +228,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -235,7 +244,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -251,7 +260,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -267,7 +276,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -283,7 +292,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -299,7 +308,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -315,7 +324,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -331,7 +340,7 @@
                                     <input type="date">
                                 </td>
                                 <td>
-                                    <button>Ajouter</button>
+                                    <button>Modifier</button>
                                     <button>Supprimer</button>
                                 </td>
                             </tr>
@@ -341,6 +350,35 @@
 
                     </table>
                 </div>
+<div id="modal-ajouter-livre" class="modal hidden ">
+    <div class="modal-content">
+      <h3>Ajouter un Livre</h3>
+      <form id="form-ajouter-livre">
+        <input type="text" name="titre" placeholder="Titre du livre" required>
+        <input type="text" name="auteur" placeholder="Auteur" required>
+        <input type="date"  name="annee" id="annee" required>
+        <label for="categorie">Catégorie :</label>
+        <select id="categorie" name="categorie" required>
+          <option value="">-- Sélectionnez une catégorie --</option>
+          <option value="roman">Roman</option>
+          <option value="science">Science</option>
+          <option value="histoire">Histoire</option>
+          <option value="biographie">Biographie</option>
+          <option value="informatique">Informatique</option>
+        </select>
+      
+        <input type="file" name="ficher" id="ficher" required>
+        <input type="text" name="isbn" placeholder="ISBN (optionnel)">
+        <input type="text" name="edition"  placeholder="Édition (optionnel)">
+        <div>
+            <input type="checkbox" name="disponible" id="disponible" checked>
+            <label for="disponible">Disponible</label>
+        </div>
+        <button type="submit">Ajouter</button>
+        <button type="button" onclick="fermerModal('modal-ajouter-livre')">Annuler</button>
+      </form>
+    </div>
+  </div>
             </main>
         </div>
 
@@ -354,6 +392,60 @@
                     confidentialité</a></p>
         </footer>
     </div>
+    <script>
+          function ouvrirModal(id) {
+   const element= document.getElementById(id)
+    console.log(element);
+    element.style.display="block"
+    
+}
+
+function fermerModal(id) {
+    const element= document.getElementById(id)
+    console.log(element);
+    element.style.display="none"
+}
+const form = document.getElementById('form-ajouter-livre');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+    const formData = new FormData(form);
+  console.log("form",formData);
+  formData.values
+
+  const livre = {
+    titre: formData.get('titre'),
+    auteur: formData.get('auteur'),
+    annee: formData.get('annee'),
+    categorie: formData.get('categorie'),
+    ficher: formData.get('ficher'),
+    isbn: formData.get('isbn'),
+    edition: formData.get('edition')
+  };
+  console.log("livre" ,livre);
+
+  
+  
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch('http://localhost:5000/api/livres', { 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+        'Authorization': `Bearer `+ token
+      },
+      body: JSON.stringify(livre)
+    });
+    
+    if (!res.ok) throw new Error('Erreur lors de l\'ajout');
+    
+    alert('Livre ajouté avec succès !');
+    form.reset();
+    
+  } catch (err) {
+    alert(err.message);
+  }
+});
+    </script>
 </body>
 
 </html>

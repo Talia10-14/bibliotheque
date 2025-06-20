@@ -23,13 +23,6 @@ header span {
     color:  #ff6200;
 }
 
-.navbar {
-    position: sticky;
-    /* ou fixed si tu veux qu'elle reste toujours visible */
-    top: 80px;
-    /* Ajuste selon la hauteur de ton header */
-    z-index: 1000;
-}
 
 .logo i {
     font-size: 2rem;
@@ -98,7 +91,19 @@ ul li {
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+ canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+}
 /* Style pour les tableaux */
 table {
     width: 100%;
