@@ -32,10 +32,10 @@
         <div class="text-box">
             <h2>Bienvenue à Bibliotech</h2>
             <p>Découvrez un monde de connaissances et d'aventures à travers notre vaste collection de livres et de ressources numériques.</p>
-        </div>
-        <div class="search-box">
-            <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
-            <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+            <div class="search-box">
+                <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
+                <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+            </div>
         </div>
     </section>
     
@@ -225,8 +225,8 @@
       const response = await fetch('http://localhost:5000/api/livres');
       const livres = await response.json();
 
-      const conteneur = document.getElementById('livres-physiques'); // ou 'livres-books' pour numériques
-      conteneur.innerHTML = ''; // Vider d'abord
+      const conteneur = document.getElementById('livres-physiques'); 
+      conteneur.innerHTML = ''; 
 
       livres.forEach(livre => {
         const div = document.createElement('div');

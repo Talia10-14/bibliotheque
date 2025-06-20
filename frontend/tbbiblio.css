@@ -19,7 +19,7 @@ header { display: flex;
 header span {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #8800ff;
+    color:  #ff6200;
 }
 .navbar {
     position: sticky; /* ou fixed si tu veux qu'elle reste toujours visible */
@@ -28,7 +28,7 @@ header span {
   }
 .logo i {
     font-size: 2rem;
-    color: #8800ff;
+    color:  #ff6200;
 }
 
 main {
@@ -39,8 +39,8 @@ main {
 }
 
 h2 {
-    color: #8800ff;
-    border-bottom: 2px solid #8800ff;
+    color:  #ff6200;
+    border-bottom: 2px solid  #ff6200;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
 }
@@ -70,7 +70,7 @@ table {
 }
 
 table thead {
-    background-color: #8800ff;
+    background-color:  #ff6200;
     color: white;
 }
 
@@ -95,7 +95,7 @@ table td {
 
 /* Style pour les boutons */
 button {
-    background-color: #8800ff;
+    background-color:  #ff6200;
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
@@ -107,14 +107,15 @@ button {
 }
 
 button:hover {
-    background-color: #8800ff;
+    background-color:  #ff6200;
 }
 /* Footer */
 .footer {
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    background-color: #333;
+    background-color: #7b726c;
+    opacity: 0.9;
     color: #fff;
     text-align: center;
 }
@@ -127,7 +128,7 @@ button:hover {
 
 .footer-logo i {
     font-size: 1.5em;
-    color: #8800ff;
+    color:  #ff6200;
     margin-right: 10px;
 }
 
@@ -143,7 +144,7 @@ button:hover {
 }
 
 .footer a {
-    color: #8800ff;
+    color:  #ff6200;
     text-decoration: none;
 }
 

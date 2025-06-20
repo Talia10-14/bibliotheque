@@ -10,10 +10,10 @@ const livreSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  annee: {
-    type: Date,
-    required: true
+  description:{
+    type: String
   },
+  
   categorie: {
     type: String,
     enum: ['classique', 'science', 'technologie', 'arts' , 'histoire'],

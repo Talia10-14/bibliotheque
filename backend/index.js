@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const empruntRoutes = require('./routes/emprunt');
 const livresRoute = require('./routes/livres');
 const Livre = require('./models/livre'); // Importer le modèle
 dotenv.config();
@@ -22,7 +23,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => {
   console.log('✅ Connecté à MongoDB');
 
-  // Tester l'ajout d'un livre APRES la connexion réussie
   const nouveauLivre = new Livre({
     titre: 'Les Misérables',
     auteur: 'Victor Hugo',
@@ -43,6 +43,8 @@ const authRoutes = require('./routes/auth');
 
 app.use('/api/livres', livresRoute);
 app.use('/api/auth', authRoutes);
+app.use('/api/emprunt', empruntRoutes);
+
 
 
 // Route test

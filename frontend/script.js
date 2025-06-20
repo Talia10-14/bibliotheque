@@ -1,7 +1,5 @@
-let livresNumeriquesPage = 0; // Page actuelle pour les livres numériques
-let livresPhysiquesPage = 0; // Page actuelle pour les livres physiques
-const livresParPage = 4; // Nombre de livres à afficher par page
-
+let livresNumeriquesPage = 0;
+const livresParPage = 4; 
 // Fonction pour rechercher des livres numériques via l'API Google Books
 async function fetchBooks(query, page = 0) {
     const startIndex = page * livresParPage;

@@ -20,20 +20,7 @@
     </header>
 
     <main>
-        <div class="side-barre">
-            <nav>
-                <ul>
-                    <li><a href="accueil.html">Accueil</a></li>
-                    <li><a href="#statistiques">Statistiques</a></li>
-                    <li><a href="#gestion-utilisateurs">Gestion des Utilisateurs</a></li>
-                    <li><a href="#actions">Actions</a></li>
-                    <li><a href="#gestion-personnel">Gestion du Personnel</a></li>
-                    <li><a href="#parametres-systeme">Paramètres du Système</a></li>
-                    <li><a href="#rapports">Rapports</a></li>
-                </ul>
-            </nav>
-        </div>
-        <!-- Section 1 : Statistiques générales -->
+        
         <section id="statistiques">
             <h2>Statistiques Générales</h2>
             <ul>
@@ -79,28 +66,13 @@
             <button onclick="location.href='roles-permissions.html'">Définir des rôles et permissions</button>
         </section>
 
-        <!-- Section 5 : Paramètres du système -->
-        <section id="parametres-systeme">
-            <h2>Paramètres du Système</h2>
-            <button onclick="location.href='parametres-pret.html'">Gestion des paramètres de prêt</button>
-            <button onclick="location.href='categories-genres.html'">Gestion des catégories et genres</button>
-        </section>
-
-        <!-- Section 6 : Rapports -->
-        <section id="rapports">
-            <h2>Rapports</h2>
-            <button onclick="genererRapport('pdf')">Générer un rapport PDF</button>
-            <button onclick="genererRapport('excel')">Générer un rapport Excel</button>
-            <button onclick="location.href='analyse-frequentations.html'">Analyse des fréquentations</button>
-        </section>
-        <!-- Modal pour Ajouter un Livre -->
 <div id="modal-ajouter-livre" class="modal hidden ">
     <div class="modal-content">
       <h3>Ajouter un Livre</h3>
       <form id="form-ajouter-livre">
         <input type="text" name="titre" placeholder="Titre du livre" required>
         <input type="text" name="auteur" placeholder="Auteur" required>
-        <input type="date"  name="annee" id="annee" required>
+        <textarea name="description" id="description" placeholder="Description"></textarea>
         <label for="categorie">Catégorie :</label>
         <select id="categorie" name="categorie" required>
           <option value="">-- Sélectionnez une catégorie --</option>
@@ -172,7 +144,7 @@ form.addEventListener('submit', async e => {
   const livre = {
     titre: formData.get('titre'),
     auteur: formData.get('auteur'),
-    annee: formData.get('annee'),
+    description: formData.get('description'),
     categorie: formData.get('categorie'),
     ficher: formData.get('ficher'),
     isbn: formData.get('isbn'),
