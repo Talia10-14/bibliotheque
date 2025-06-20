@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accueil</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -31,14 +33,15 @@
     <section class="section search">
         <div class="text-box">
             <h2>Bienvenue à Bibliotech</h2>
-            <p>Découvrez un monde de connaissances et d'aventures à travers notre vaste collection de livres et de ressources numériques.</p>
-            <div class="search-box">
-                <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
-                <button id="search-button" type="button"><i class="fas fa-search"></i></button>
-            </div>
+            <p>Découvrez un monde de connaissances et d'aventures à travers notre vaste collection de livres et de
+                ressources numériques.</p>
+        </div>
+        <div class="search-box">
+            <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
+            <button id="search-button" type="button"><i class="fas fa-search"></i></button>
         </div>
     </section>
-    
+
 
     <section class="categories">
         <h2>Un catalogue complet</h2>
@@ -94,16 +97,16 @@
         <h3>Livres Numériques</h3>
         <div class="books-container">
             <div class="books" id="livres-books">
-                              
-            </div>    
-         </div>  
-         <button id="voir-plus-numeriques">Voir plus</button>
-         <button id="voir-moins-numeriques" class="voir-moins hidden">Voir moins</button>
 
-         <h3>Livres Physiques</h3>
-         <div class="books-container">
+            </div>
+        </div>
+        <button id="voir-plus-numeriques">Voir plus</button>
+        <button id="voir-moins-numeriques" class="voir-moins hidden">Voir moins</button>
+
+        <h3>Livres Physiques</h3>
+        <div class="books-container">
             <div class="books" id="livres-physiques">
-              
+
             </div>
         </div>
         <button id="voir-plus-physiques">Voir plus</button>
@@ -113,8 +116,11 @@
 
     <section id="a-propos" class="about">
         <h2>À propos de Bibliotech</h2>
-        <p>Bibliotech est une plateforme dédiée à la promotion de la lecture et à l'accès à un large éventail de ressources littéraires et numériques. Nous croyons que la lecture est une porte ouverte sur le monde et un outil puissant pour l'apprentissage et le développement personnel.</p>
-        <p>Notre mission est de rendre la lecture accessible à tous, en proposant une collection diversifiée de livres, d'articles et de ressources éducatives.</p>
+        <p>Bibliotech est une plateforme dédiée à la promotion de la lecture et à l'accès à un large éventail de
+            ressources littéraires et numériques. Nous croyons que la lecture est une porte ouverte sur le monde et un
+            outil puissant pour l'apprentissage et le développement personnel.</p>
+        <p>Notre mission est de rendre la lecture accessible à tous, en proposant une collection diversifiée de livres,
+            d'articles et de ressources éducatives.</p>
     </section>
 
     <!-- Section Services -->
@@ -148,13 +154,14 @@
     <section id="contact" class="contact">
         <div class="contact-box">
             <h2>Contactez-nous</h2>
-            <p class="contact-description">Nous sommes là pour répondre à vos questions et vous aider dans votre parcours de lecture.</p>
+            <p class="contact-description">Nous sommes là pour répondre à vos questions et vous aider dans votre
+                parcours de lecture.</p>
             <div class="contact-content">
                 <div class="contact-info">
                     <p><i class="fas fa-map-marker-alt"></i> 123 Rue des Livres, 75000 Paris</p>
-                    <p><i class="fas fa-phone-alt"></i>  01 23 45 67 89</p>
+                    <p><i class="fas fa-phone-alt"></i> 01 23 45 67 89</p>
                     <p><i class="fas fa-envelope"></i> contact@bibliotech.fr</p>
-                    <p><i class="fas fa-clock"></i>  Lundi-Vendredi 9h-19h, Samedi 10h-18h</p>
+                    <p><i class="fas fa-clock"></i> Lundi-Vendredi 9h-19h, Samedi 10h-18h</p>
                 </div>
                 <form class="contact-form">
                     <h3>Envoyez-nous un Message</h3>
@@ -172,69 +179,75 @@
             <i class="fas fa-book-open"></i>
             <span>Bibliotech</span>
         </div>
-        <p>© 2023 BiblioTech. Tous droits réservés.</p>
-        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de confidentialité</a></p>
+        <p>© 2025 BiblioTech. Tous droits réservés.</p>
+        <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de
+                confidentialité</a></p>
     </footer>
     <script src="script.js"></script>
-   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-  const role = localStorage.getItem('role');
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const role = localStorage.getItem('role');
 
-  if (role === 'admin') {
-    document.getElementById('adminBtn').style.display = 'inline';
-  } else if (role === 'biblio') {
-    document.getElementById('biblioBtn').style.display = 'inline';
-  } else if (role === 'client') {
-    document.getElementById('userBtn').style.display = 'inline';
-  }
-});
-
-    // Filtrer les livres en fonction de la recherche
-    document.getElementById('search-input').addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-        const books = document.querySelectorAll('.book');
-
-        books.forEach(book => {
-            const title = book.getAttribute('data-title').toLowerCase();
-            if (title.includes(query)) {
-                book.style.display = 'block';
-            } else {
-                book.style.display = 'none';
+            if (role === 'admin') {
+                document.getElementById('adminBtn').style.display = 'inline';
+            } else if (role === 'biblio') {
+                document.getElementById('biblioBtn').style.display = 'inline';
+            } else if (role === 'client') {
+                document.getElementById('userBtn').style.display = 'inline';
             }
         });
-    });
 
-    // Filtrer les livres en fonction de la catégorie
-    document.querySelectorAll('.category-group select').forEach(select => {
-        select.addEventListener('change', function () {
-            const selectedCategory = this.value;
+        // Filtrer les livres en fonction de la recherche
+        document.getElementById('search-input').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
             const books = document.querySelectorAll('.book');
 
             books.forEach(book => {
-                const category = book.getAttribute('data-category');
-                if (selectedCategory === '' || category === selectedCategory) {
+                const title = book.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
                     book.style.display = 'block';
                 } else {
                     book.style.display = 'none';
                 }
             });
         });
-    });
-    async function chargerLivres() {
-    try {
-      const response = await fetch('http://localhost:5000/api/livres');
-      const livres = await response.json();
 
-      const conteneur = document.getElementById('livres-physiques'); 
-      conteneur.innerHTML = ''; 
+<<<<<<< HEAD
+        const conteneur = document.getElementById('livres-physiques');
+        conteneur.innerHTML = '';
+=======
+        // Filtrer les livres en fonction de la catégorie
+        document.querySelectorAll('.category-group select').forEach(select => {
+            select.addEventListener('change', function () {
+                const selectedCategory = this.value;
+                const books = document.querySelectorAll('.book');
+>>>>>>> 8962287 (Gestion tableau de bord administrateur)
 
-      livres.forEach(livre => {
-        const div = document.createElement('div');
-        div.classList.add('book');
-        div.setAttribute('data-category', livre.categorie);
-        div.setAttribute('data-title', livre.titre);
+        books.forEach(book => {
+            const category = book.getAttribute('data-category');
+            if (selectedCategory === '' || category === selectedCategory) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+            });
+        });
+        async function chargerLivres() {
+            try {
+                const response = await fetch('http://localhost:5000/api/livres');
+                const livres = await response.json();
 
-        div.innerHTML = `
+                const conteneur = document.getElementById('livres-physiques'); // ou 'livres-books' pour numériques
+                conteneur.innerHTML = ''; // Vider d'abord
+
+                livres.forEach(livre => {
+                    const div = document.createElement('div');
+                    div.classList.add('book');
+                    div.setAttribute('data-category', livre.categorie);
+                    div.setAttribute('data-title', livre.titre);
+
+                    div.innerHTML = `
           <img src="${livre.image || '/image/default.jpg'}" alt="${livre.titre}">
           <h4>${livre.titre}</h4>
           <p>${livre.auteur}</p>
@@ -244,27 +257,28 @@
           </div>
         `;
 
-        conteneur.appendChild(div);
-      });
-    } catch (error) {
-      console.error('Erreur chargement livres :', error);
-      document.getElementById('livres-physiques').innerText = 'Impossible de charger les livres';
-    }
-  }
+                    conteneur.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Erreur chargement livres :', error);
+                document.getElementById('livres-physiques').innerText = 'Impossible de charger les livres';
+            }
+        }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    // Charger les livres et gérer les boutons selon le rôle
-    chargerLivres();
+        window.addEventListener('DOMContentLoaded', () => {
+            // Charger les livres et gérer les boutons selon le rôle
+            chargerLivres();
 
-    const role = localStorage.getItem('role');
-    if (role === 'admin') {
-      document.getElementById('adminBtn').style.display = 'inline';
-    } else if (role === 'biblio') {
-      document.getElementById('biblioBtn').style.display = 'inline';
-    } else if (role === 'client') {
-      document.getElementById('userBtn').style.display = 'inline';
-    }
-  });
-</script>
+            const role = localStorage.getItem('role');
+            if (role === 'admin') {
+                document.getElementById('adminBtn').style.display = 'inline';
+            } else if (role === 'biblio') {
+                document.getElementById('biblioBtn').style.display = 'inline';
+            } else if (role === 'client') {
+                document.getElementById('userBtn').style.display = 'inline';
+            }
+        });
+    </script>
 </body>
+
 </html>

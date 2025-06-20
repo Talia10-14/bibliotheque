@@ -7,7 +7,8 @@ body {
     color: #333;
 }
 
-header { display: flex;
+header {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
@@ -21,21 +22,61 @@ header span {
     font-weight: bold;
     color:  #ff6200;
 }
+
 .navbar {
-    position: sticky; /* ou fixed si tu veux qu'elle reste toujours visible */
-    top: 80px; /* Ajuste selon la hauteur de ton header */
+    position: sticky;
+    /* ou fixed si tu veux qu'elle reste toujours visible */
+    top: 80px;
+    /* Ajuste selon la hauteur de ton header */
     z-index: 1000;
-  }
+}
+
 .logo i {
     font-size: 2rem;
     color:  #ff6200;
 }
 
+.dashboard-layout {
+    display: flex;
+    min-height: calc(100vh - 400px);
+}
+
+.sidebar {
+    min-width: 300px;
+    background-color: whitesmoke;
+    color: rgb(0, 0, 0);
+    padding-top: 20px;
+    height: 100vh;
+    position: sticky;
+    top: 90px;
+}
+
+.sidebar .nav-link {
+    color: rgb(0, 0, 0);
+    padding: 12px 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #8800ff;
+}
+
+.sidebar .nav-link.active {
+    background-color: #8800ff;
+    font-weight: bold;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+
 main {
     padding: 2rem;
-    max-width: 1200px;
-    margin-top: 150px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
 }
 
 h2 {
@@ -74,7 +115,8 @@ table thead {
     color: white;
 }
 
-table th, table td {
+table th,
+table td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -109,6 +151,7 @@ button {
 button:hover {
     background-color:  #ff6200;
 }
+
 /* Footer */
 .footer {
     display: flex;
