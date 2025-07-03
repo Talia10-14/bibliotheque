@@ -19,13 +19,50 @@ function verifyToken(req, res, next) {
     next();
   });
 }
-function requireRole(role) {
-    return function (req, res, next) {
-      if (!req.user || req.user.role !== role) {
-        return res.status(403).json({ message: `Accès réservé au rôle : ${role}` });
-      }
-      next();
-    };
-  }
+// function requireRole(role) {
+//     return function (req, res, next) {
+//       console.log('--- requireRole ---');
+//     console.log('Rôles acceptés :', role);
+//     console.log('Rôle utilisateur :', req.user?.role);
+//       if (!req.user || req.user.role !== role) {
+//         console.log('⛔ Accès refusé. Rôle non autorisé.');
+
+//         return res.status(403).json({ message: `Accès réservé au rôle : ${role}` });
+//       }
+//       if (Array.isArray(role)) {
+//         // Si roles est un tableau, vérifie que le rôle de l'utilisateur est dans ce tableau
+//         if (!role.includes(req.user.role)) {
+//           return res.status(403).json({ message: `Accès réservé aux rôles : ${roles.join(', ')}` });
+//         }
+//       } else {
+//         // Sinon, simple comparaison avec un rôle string
+//         if (req.user.role !== role) {
+//           return res.status(403).json({ message: `Accès réservé au rôle : ${roles}` });
+//         }
+//       }
+//       console.log('✅ Accès autorisé');
+
+//       next();
+//     };
+ // }
+ function requireRole(roles) {
+  return function (req, res, next) {
+    console.log('--- requireRole ---');
+    console.log('Rôles acceptés :', roles);
+    console.log('Rôle utilisateur brut :', `"${req.user?.role}"`);
+    console.log('Rôle utilisateur trim:', `"${req.user?.role.trim()}"`);
+    
+    const userRole = req.user.role.trim().toLowerCase();
+
+    if (!roles.includes(userRole)) {
+      console.log('⛔ Accès refusé. Rôle non autorisé.');
+      return res.status(403).json({ message: 'Accès refusé. Rôle insuffisant.' });
+    }
+
+    console.log('✅ Accès autorisé');
+    next();
+  };
+}
+
 
 module.exports = { verifyToken, requireRole };

@@ -21,10 +21,11 @@
                 <li><a href="#a-propos">À propos</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="formulaire.html" class="inscription">Inscription</a></li>
-                <a id="adminBtn" href="tbadmin.html" style="display: none;">Tableau Admin</a>
-                <a id="biblioBtn" href="tbbiblio.html" style="display: none;">Tableau Biblio</a>
-                <a id="userBtn" href="tbperso.html" style="display: none;">Tableau Perso</a>
+                <li><a href="formulaire.html" class="inscription" id="inscriptionBtn">Inscription</a></li>
+                <li><a id="adminBtn" href="tbadmin.html" style="display:none;">Tableau de bord Admin</a></li>
+                <li><a id="biblioBtn" href="tbbiblio.html" style="display:none;">Tableau de bord Biblio</a></li>
+                <li><a id="userBtn" href="tbperso.html" style="display:none;">Tableaude de bord Perso</a></li>
+              
 
             </ul>
         </nav>
@@ -34,20 +35,20 @@
             <h2>Bienvenue à Bibliotech</h2>
             <p>Découvrez un monde de connaissances et d'aventures à travers notre vaste collection de livres et de
                 ressources numériques.</p>
-        </div>
-        <div class="search-box">
-            <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
-            <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+                <div class="search-box">
+                    <input id="search-input" type="text" placeholder="Rechercher un livre, un auteur ou un sujet...">
+                    <button id="search-button" type="button"><i class="fas fa-search"></i></button>
+                </div>
         </div>
     </section>
 
 
     <section class="categories">
         <h2>Un catalogue complet</h2>
-        <div class="filters">
-            <button id="all-categories-button">Toutes les catégories</button>
-        </div>
         <div class="category-selects">
+            <div class="filters">
+                <button id="all-categories-button">Toutes les catégories</button>
+            </div>
             <div class="category-group">
                 <select id="sciences">
                     <option value="">Science</option>
@@ -162,13 +163,14 @@
                     <p><i class="fas fa-envelope"></i> contact@bibliotech.fr</p>
                     <p><i class="fas fa-clock"></i> Lundi-Vendredi 9h-19h, Samedi 10h-18h</p>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" action="https://formspree.io/f/mkgbqbaj" method="POST">
                     <h3>Envoyez-nous un Message</h3>
                     <input type="text" name="name" placeholder="Nom" required>
                     <input type="email" name="email" placeholder="Email" required>
                     <textarea name="message" placeholder="Message" rows="5" required></textarea>
                     <button type="submit">Envoyer</button>
                 </form>
+                
             </div>
         </div>
     </section>
@@ -183,101 +185,57 @@
                 confidentialité</a></p>
     </footer>
     <script src="script.js"></script>
+    <script src="lives-utiles.js"></script> <!-- doit contenir creerCarteLivre -->
+    
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const role = localStorage.getItem('role');
-
-            if (role === 'admin') {
-                document.getElementById('adminBtn').style.display = 'inline';
-            } else if (role === 'biblio') {
-                document.getElementById('biblioBtn').style.display = 'inline';
-            } else if (role === 'client') {
-                document.getElementById('userBtn').style.display = 'inline';
-            }
-        });
-
-        // Filtrer les livres en fonction de la recherche
-        document.getElementById('search-input').addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const books = document.querySelectorAll('.book');
-
-            books.forEach(book => {
-                const title = book.getAttribute('data-title').toLowerCase();
-                if (title.includes(query)) {
-                    book.style.display = 'block';
-                } else {
-                    book.style.display = 'none';
-                }
-            });
-        });
-
-<<<<<<< HEAD
-        const conteneur = document.getElementById('livres-physiques');
-        conteneur.innerHTML = '';
-=======
-        // Filtrer les livres en fonction de la catégorie
-        document.querySelectorAll('.category-group select').forEach(select => {
-            select.addEventListener('change', function () {
-                const selectedCategory = this.value;
-                const books = document.querySelectorAll('.book');
->>>>>>> 8962287 (Gestion tableau de bord administrateur)
-
-        books.forEach(book => {
-            const category = book.getAttribute('data-category');
-            if (selectedCategory === '' || category === selectedCategory) {
-                book.style.display = 'block';
-            } else {
-                book.style.display = 'none';
-            }
-        });
-            });
-        });
-        async function chargerLivres() {
-            try {
-                const response = await fetch('http://localhost:5000/api/livres');
-                const livres = await response.json();
-
-                const conteneur = document.getElementById('livres-physiques'); // ou 'livres-books' pour numériques
-                conteneur.innerHTML = ''; // Vider d'abord
-
-                livres.forEach(livre => {
-                    const div = document.createElement('div');
-                    div.classList.add('book');
-                    div.setAttribute('data-category', livre.categorie);
-                    div.setAttribute('data-title', livre.titre);
-
-                    div.innerHTML = `
-          <img src="${livre.image || '/image/default.jpg'}" alt="${livre.titre}">
-          <h4>${livre.titre}</h4>
-          <p>${livre.auteur}</p>
-          <div class="book-actions">
-            <button class="btn reserver">Réserver</button>
-            <button class="btn emprunter">Emprunter</button>
-          </div>
-        `;
-
-                    conteneur.appendChild(div);
-                });
-            } catch (error) {
-                console.error('Erreur chargement livres :', error);
-                document.getElementById('livres-physiques').innerText = 'Impossible de charger les livres';
-            }
+      // Affiche les boutons selon rôle
+      function afficherBoutonsRole() {
+        const role = localStorage.getItem('role');
+        console.log('Rôle utilisateur:', role); // Pour débogage
+        
+        const inscriptionBtn = document.getElementById('inscriptionBtn');
+        if (role) {
+      if (inscriptionBtn) inscriptionBtn.style.display = 'none';
+    }
+        if (role === 'admin') {
+          document.getElementById('adminBtn').style.display = 'inline';
+        } else if (role === 'biblio') {
+          document.getElementById('biblioBtn').style.display = 'inline';
+        } else if (role === 'client') {
+          document.getElementById('userBtn').style.display = 'inline';
         }
+      }
+      document.addEventListener('DOMContentLoaded', afficherBoutonsRole);
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Charger les livres et gérer les boutons selon le rôle
-            chargerLivres();
-
-            const role = localStorage.getItem('role');
-            if (role === 'admin') {
-                document.getElementById('adminBtn').style.display = 'inline';
-            } else if (role === 'biblio') {
-                document.getElementById('biblioBtn').style.display = 'inline';
-            } else if (role === 'client') {
-                document.getElementById('userBtn').style.display = 'inline';
-            }
-        });
     </script>
+    <script>
+        // Cibler le formulaire
+        const contactForm = document.querySelector('.contact-form');
+      
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault(); // Empêche l'envoi immédiat
+      
+          const formData = new FormData(contactForm);
+      
+          fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              alert("Message envoyé avec succès !");
+              contactForm.reset(); // ✅ Réinitialiser le formulaire
+            } else {
+              alert("Une erreur s'est produite. Veuillez réessayer.");
+            }
+          }).catch(error => {
+            alert("Erreur réseau. Vérifie ta connexion.");
+          });
+        });
+      </script>
+      
 </body>
 
 </html>

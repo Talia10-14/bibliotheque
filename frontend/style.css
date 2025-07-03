@@ -56,7 +56,7 @@ nav ul li a.inscription {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/image/n802.jpg'); /* Remplacez par le chemin de votre image */
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/frontend/image/n802.jpg'); /* Remplacez par le chemin de votre image */
     background-size:  cover; /* L'image couvre toute la section */
     background-repeat: no-repeat;
     background-position: center;
@@ -297,18 +297,35 @@ nav ul li a.inscription {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
-
+#livres-physiques .book{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    width: 400px;
+    height: 300px;
+    text-align: center;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#livres-physiques .book:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
 .book {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    transition: opacity 0.3s ease;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
-    min-width: 180px;
+    max-width: 300px;
     text-align: center;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -549,6 +566,20 @@ nav ul li a.inscription {
     color: #fff;
 }
 
+#all-categories-button{
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#all-categories-button:hover{
+    background-color: #fff;
+}
 .category-selects {
     display: flex;
     flex-wrap: wrap;

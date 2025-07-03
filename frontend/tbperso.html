@@ -39,7 +39,7 @@
                     <a class="nav-link" href="#actions-rapides">Actions Rapides</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#reservations">Réservations</a>
+                    <a class="nav-link" href="#reservations">Mes Emprunts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="livres.html">Livre</a>
@@ -82,19 +82,26 @@
                 <h3 id="actions-rapides">Actions Rapides</h3>
                 <div id="quick-actions">
                     <button onclick="location.href='livres.html'">Emprunter un livre</button>
-                    <button onclick="redirectTo('extend-loan')">Prolonger un emprunt</button>
                 </div>
                 <p id="notification" style="color: red; display: none;">Un livre réservé est disponible !</p>
             </section>
 
             <section>
-                <h3 id="reservations">Mes Réservations</h3>
+                <h3 id="reservations">Mes Emprunts</h3>
                 <table>
-
-                    <tbody id="reservations">
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th>Date d'emprunt</th>
+                      <th>Livre</th>
+                      <th>Date de retour prévue</th>
+                      <th>Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reservations-body">
+                  </tbody>
                 </table>
-            </section>
+              </section>
+              
 
         </main>
     </div>
@@ -109,9 +116,82 @@
     </footer>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          chargerEmprunts();
+        });
+      
+        async function chargerEmprunts() {
+          const token = localStorage.getItem('token');
+          try {
+            const res = await fetch('http://localhost:5000/api/emprunts', {
+              headers: {
+                'Authorization': 'Bearer ' + token
+              }
+            });
+      
+            const emprunts = await res.json();
+            afficherEmprunts(emprunts);
+          } catch (err) {
+            console.error("Erreur :", err);
+          }
+        }
+ function afficherEmprunts(emprunts) {
+  const body = document.getElementById('reservations-body');
+  const historique = document.getElementById('borrow-history');
+  const count = document.getElementById('borrowed-count');
+  const overdue = document.getElementById('overdue-count');
+
+  body.innerHTML = '';
+  historique.innerHTML = '';
+  let total = 0;
+  let enRetard = 0;
+
+  emprunts.forEach(e => {
+      console.log("Emprunt traité :", e);
+
+    const estEnRetard = new Date(e.dateRetourPrevue) < new Date();
+    const statut = estEnRetard ? "En retard" : "En cours";
+    const couleurStatut = estEnRetard ? 'red' : 'green';
+
+    // Historique : (Date, Livre, Statut)
+    const ligneHistorique = `
+      <tr>
+        <td>${new Date(e.dateEmprunt).toLocaleDateString()}</td>
+        <td>${e.livre.titre && e.livre.titre? e.livre.titre: "Inconnu"}</td>
+        <td style="color: ${couleurStatut};">${statut}</td>
+      </tr>
+    `;
+     const trHistorique = document.createElement('tr');
+    trHistorique.innerHTML = ligneHistorique;
+    historique.appendChild(trHistorique);
+
+    // Réservations : (Date, Livre, Date Retour, Statut)
+            const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${new Date(e.dateEmprunt).toLocaleDateString()}</td>
+        <td>${e.livre.titre && e.livre.titre? e.livre.titre: "Inconnu"}</td>
+        <td>${new Date(e.dateRetourPrevue).toLocaleDateString()}</td>
+        <td style="color: ${couleurStatut};">${statut}</td>
+        `;
+        body.appendChild(tr);
+
+
+    total++;
+    if (estEnRetard) enRetard++;
+  });
+
+  count.textContent = total;
+  overdue.textContent = enRetard;
+}
+
+      </script>
+      
+
+    <script>
         document.getElementById('logoutBtn').addEventListener('click', () => {
             // Supprimer le token du localStorage
             localStorage.removeItem('token');
+            localStorage.removeItem('role');
 
             // Rediriger vers la page de connexion
             window.location.href = 'connexion.html';
@@ -119,5 +199,5 @@
 
     </script>
 </body>
-
+ 
 </html>

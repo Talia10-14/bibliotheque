@@ -26,6 +26,7 @@ header span {
     font-size: 1.5rem;
     font-weight: bold;
     color: #ff6200;
+    margin: 0 auto;
 }
 header i {
     font-size: 2rem;
@@ -55,11 +56,11 @@ header i {
 }
 
 .sidebar .nav-link:hover {
-    background-color: #8800ff;
+    background-color: #f4f4f4;
 }
 
 .sidebar .nav-link.active {
-    background-color: #8800ff;
+    background-color: #ff6200;
     font-weight: bold;
 }
 
@@ -82,7 +83,19 @@ h2, h3 {
 section {
     margin-bottom: 2rem;
 }
+/* 
+ul {
+    list-style-type: none;
+    padding: 0;
+}
 
+ul li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+} */
 ul {
     list-style-type: none;
     padding: 0;

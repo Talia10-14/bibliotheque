@@ -37,7 +37,10 @@
   const email = document.getElementById('email').value;
   const motdepasse = document.getElementById('motdepasse').value;
 
-  const res = await fetch('http://localhost:5000/api/auth/connexion', {
+  const url = 'http://localhost:5000/api/auth/connexion'.trim();
+
+const res = await fetch(url, {
+
     method: 'POST',
     headers: {'Content-Type': 'application/json' },
     body: JSON.stringify({ email, motdepasse })
@@ -52,6 +55,7 @@
 
     const decoded = jwt_decode(data.token);
     const role = decoded.role;
+    localStorage.setItem('role', role);
 
     // Redirection selon rôle
     if (role === 'admin') {

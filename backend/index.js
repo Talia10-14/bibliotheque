@@ -4,18 +4,28 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const User = require('./models/utilisateur');
 const empruntRoutes = require('./routes/emprunt');
 const livresRoute = require('./routes/livres');
-const Livre = require('./models/livre'); // Importer le modèle
+const Livre = require('./models/livre');
+const multer = require('multer');
+const path = require('path');
+
 dotenv.config();
 
+const utilisateursRoute = require('./routes/utilisateurs');
+
 const app = express();
+
+
 const PORT = process.env.PORT || 5000;
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/utilisateurs', utilisateursRoute); 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   // options facultatives pour les anciennes versions, sinon tu peux les ignorer
@@ -23,13 +33,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => {
   console.log('✅ Connecté à MongoDB');
 
-  const nouveauLivre = new Livre({
-    titre: 'Les Misérables',
-    auteur: 'Victor Hugo',
-    année: 1862
-  });
-
-  return nouveauLivre.save();
 })
 .then(() => {
   console.log('📚 Livre enregistré !');
@@ -43,7 +46,9 @@ const authRoutes = require('./routes/auth');
 
 app.use('/api/livres', livresRoute);
 app.use('/api/auth', authRoutes);
-app.use('/api/emprunt', empruntRoutes);
+
+app.use('/api/emprunts', empruntRoutes);
+app.use('/uploads', express.static('uploads'));
 
 
 
@@ -51,6 +56,7 @@ app.use('/api/emprunt', empruntRoutes);
 app.get('/', (req, res) => {
   res.send('API en ligne ✅');
 });
+console.log('✔️ Routes auth chargées');
 
 // Lancer le serveur
 app.listen(PORT, () => {

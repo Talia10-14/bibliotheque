@@ -42,12 +42,12 @@
     background-color: #fff;
 }
 .category-tab.active {
-    background-color: #8800ff;
+    background-color: #ff6200;
     color: #fff;
 }
 
 .category-tab:hover {
-    background-color: #6600cc;
+    background-color: #ff6200;
     color: #fff;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .category-group select:focus {
-    border-color: #8800ff;
+    border-color: #ff6200;
     outline: none;
 }
 .search-box {
@@ -104,7 +104,7 @@
 }
 
 .search-box button {
-    background-color: #8800ff;
+    background-color: #ff6200;
     color: white;
     border: none;
     border-radius: 25px;
@@ -116,76 +116,78 @@
 }
 
 .search-box button:hover {
-    background-color: #8800ff;
+    background-color: black;
 }
 h2{
     text-align: center;
 }
 .livres-section {
   margin-top: 2rem;
+  padding: 0 2rem;
+
 }
 
 .livres-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
-  padding: 1rem 0;
+  padding: 2rem 0;
+}
+
+@media (max-width: 1200px) {
+  .livres-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 cartes sur moyen écran */
+  }
+}
+
+@media (max-width: 900px) {
+  .livres-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 cartes sur tablette */
+  }
+}
+
+@media (max-width: 600px) {
+  .livres-container {
+    grid-template-columns: 1fr; /* 1 carte sur mobile */
+  }
 }
 
 .livre-card {
   background-color: #fff;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .livre-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .livre-card img {
   width: 100%;
-  max-width: 150px;
+  max-width: 160px;
   height: auto;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 1rem;
 }
 
 .livre-card h3 {
-  color: #8800ff;
+  color: #ff6200;
+  font-size: 1.1rem;
   margin: 0.5rem 0;
-  text-align: center;
 }
 
-.livre-card p {
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.livre-card button {
-  padding: 0.6rem 1.2rem;
-  background-color: #8800ff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.livre-card button:hover {
-  background-color: #7700e6;
-}
 .livre-card .auteur {
   font-weight: 500;
   color: #444;
   margin-bottom: 0.5rem;
-  text-align: center;
+  font-size: 0.95rem;
 }
 
 .livre-card .description {
@@ -193,5 +195,47 @@ h2{
   color: #555;
   text-align: justify;
   margin-bottom: 1rem;
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+.livre-card button {
+  padding: 0.6rem 1.2rem;
+  background-color: #ff6200;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.livre-card button:hover {
+  background-color: black;
+}
+
+.sidebar {
+  min-width: 300px;
+  background-color: whitesmoke;
+  color: rgb(0, 0, 0);
+  padding-top: 20px;
+  height: 100vh;
+  position: sticky;
+  top: 90px;
+}
+
+.sidebar .nav-link {
+  color: rgb(0, 0, 0);
+  padding: 12px 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #c4c1c1;
+}
+
+.sidebar .nav-link.active {
+  background-color: #ff6200;
+  font-weight: bold;
 }

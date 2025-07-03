@@ -19,7 +19,7 @@ const livreSchema = new mongoose.Schema({
     enum: ['classique', 'science', 'technologie', 'arts' , 'histoire'],
     required: true
   },
-  ficher: {
+  fichier: {
     type: String,
 /*     required: true
  */  },

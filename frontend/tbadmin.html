@@ -38,7 +38,7 @@
             <a class="nav-link" href="#gestion-utilisateurs">Gestion des utilisateurs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#actions">Actions</a>
+            <a class="nav-link" href="#livres-empruntes">Livres-Empruntés</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="livre.html">Livre</a>
@@ -46,10 +46,7 @@
           <li class="nav-item">
             <button onclick="ouvrirModal('modal-ajouter-livre')">ajouter un nouveau livre</button>
           </li>
-          <li class="nav-item">
-            <button onclick="ouvrirModal('modal-ajouter-bibliothecaire')">Ajouter un bibliothécaire</button>
-
-          </li>
+         
           <li class="nav-item">
             <a class="nav-link" id="logoutBtn" href="#">Déconnexion</a>
           </li>
@@ -68,23 +65,53 @@
 
 
 
-        <!-- Section 3 : Actions -->
-        <section id="actions">
-          <h2>Actions</h2>
-          <button onclick="location.href='gerer-retours.html'">Gérer les retours</button>
-          <button onclick="location.href='gerer-reservations.html'">Gérer les réservations</button>
-        </section>
+        <section id="livres-empruntes">
+            <h2>Livres Empruntés</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <input type="text" id="searchEmprunt" placeholder="🔍 Rechercher par nom ou statut" oninput="filtrerEmprunts()" style="padding: 0.5rem; width: 50%;">
+              
+                <button onclick="reclamerTousLesRetards()" style="padding: 0.5rem; background-color: #ff6200; color: white;">📣 Tous réclamer</button>
+              </div>
+              
+            <table id="table-emprunts">
+              <thead>
+                <tr>
+                  <th>Titre du livre</th>
+                  <th>Utilisateur</th>
+                  <th>Date d'emprunt</th>
+                  <th>Date de retour prévue</th>
+                  <th>Statut</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="emprunts-body">
+                <!-- Lignes d'emprunts injectées par JS -->
+              </tbody>
+            </table>
+          </section>
+          
 
         <!-- Section 4 : Gestion du personnel -->
         <section id="gestion-personnel">
-          <h2>Gestion du Personnel</h2>
-          <button onclick="location.href='modifier-bibliothecaire.html'">Modifier un bibliothécaire</button>
-          <button onclick="location.href='supprimer-bibliothecaire.html'">Supprimer un bibliothécaire</button>
-          <button onclick="location.href='roles-permissions.html'">Définir des rôles et permissions</button>
+          <h2>Gestion des utilisateurs</h2>
+          <input type="text" id="searchInput" placeholder="Rechercher par nom ou rôle" oninput="filtrerUtilisateurs()">
+          <table id="table-utilisateurs">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Changer Rôle</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="liste-utilisateurs">
+              <!-- Les lignes seront injectées ici -->
+            </tbody>
+          </table>
+          
         </section>
 
-        <<<<<<< HEAD=======<!-- Modal pour Ajouter un Livre -->
-          >>>>>>> f18d00e (Modif)
           <div id="modal-ajouter-livre" class="modal hidden ">
             <div class="modal-content">
               <h3>Ajouter un Livre</h3>
@@ -102,7 +129,7 @@
                   <option value="informatique">Informatique</option>
                 </select>
 
-                <input type="file" name="ficher" id="ficher" required>
+                <input type="file" name="fichier" id="fichier" required>
                 <input type="text" name="isbn" placeholder="ISBN (optionnel)">
                 <input type="text" name="edition" placeholder="Édition (optionnel)">
                 <div>
@@ -110,24 +137,12 @@
                   <label for="disponible">Disponible</label>
                 </div>
                 <button type="submit">Ajouter</button>
-                <button type="button" onclick="fermerModal('modal-ajouter-livre')">Annuler</button>
+                <button type="button" onclick="fermerModal('modal-ajouter-livre')" id="annuler">Annuler</button>
               </form>
             </div>
           </div>
 
-          <!-- Modal pour Ajouter un Bibliothécaire -->
-          <div id="modal-ajouter-bibliothecaire" class="modal hidden">
-            <div class="modal-content">
-              <h3>Ajouter un Bibliothécaire</h3>
-              <form id="form-ajouter-bibliothecaire">
-                <input type="text" placeholder="Nom complet" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Rôle" required>
-                <button type="submit">Ajouter</button>
-                <button type="button" onclick="fermerModal('modal-ajouter-bibliothecaire')">Annuler</button>
-              </form>
-            </div>
-          </div>
+          
 
       </main>
     </div>
@@ -141,7 +156,6 @@
           confidentialité</a></p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="tb1.js"></script>
     <script>
       function ouvrirModal(id) {
         const element = document.getElementById(id)
@@ -157,91 +171,486 @@
       }
       const form = document.getElementById('form-ajouter-livre');
 
-      form.addEventListener('submit', async e => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        console.log("form", formData);
-        formData.values
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const formData = new FormData(form);
 
-        const livre = {
-          titre: formData.get('titre'),
-          auteur: formData.get('auteur'),
-          description: formData.get('description'),
-          categorie: formData.get('categorie'),
-          ficher: formData.get('ficher'),
-          isbn: formData.get('isbn'),
-          edition: formData.get('edition')
-        };
-        console.log("livre", livre);
+  try {
+    const token = localStorage.getItem('token');
+    console.log("Token envoyé :", token);
+
+    const res = await fetch('http://localhost:5000/api/livres', { 
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }, // ne mets pas Content-Type ici, le navigateur gère multipart/form-data automatiquement
+      body: formData
+    });
+    if (!res.ok) throw new Error('Erreur lors de l\'ajout');
+    alert('Livre ajouté avec succès !');
+    form.reset();
+    fermerModal('modal-ajouter-livre'); 
+    afficherTousLesLivres();
+  } catch (err) {
+    alert(err.message);
+  }
+});  
 
 
 
-        try {
-          const token = localStorage.getItem('token');
-          const res = await fetch('http://localhost:5000/api/livres', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ` + token
-            },
-            body: JSON.stringify(livre)
-          });
+ let tousLesUtilisateurs = []; 
 
-          if (!res.ok) throw new Error('Erreur lors de l\'ajout');
+async function afficherUtilisateurs() {
+  const token = localStorage.getItem('token');
+  
 
-          alert('Livre ajouté avec succès !');
-          form.reset();
+  try {
+    const res = await fetch('http://localhost:5000/api/utilisateurs', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
 
-        } catch (err) {
-          alert(err.message);
-        }
-      });
-      // Exemple de données dynamiques
-      const statsData = {
-        livresCirculation: 250,
-        empruntsJour: 15,
-        empruntsSemaine: 75,
-        livresRetard: 10,
-        nouveauxInscrits: 5
-      };
+    if (!res.ok) {
+      // Affiche le status et message pour debug
+      const texte = await res.text(); // pour voir ce que le serveur renvoie
+      throw new Error(`Erreur ${res.status} : ${texte}`);
+    }
+    tousLesUtilisateurs = await res.json();
+    afficherDansTableau(tousLesUtilisateurs);
+  } catch (err) {
+    console.error("Erreur lors du chargement des utilisateurs :", err);
+  }
+}
 
-      const membresData = [
-        { nom: "Jean Dupont", email: "jean.dupont@example.com", statut: "Actif" },
-        { nom: "Marie Curie", email: "marie.curie@example.com", statut: "Suspendu" },
-        { nom: "Albert Einstein", email: "albert.einstein@example.com", statut: "Actif" }
-      ];
+function afficherDansTableau(utilisateurs) {
+  const tbody = document.getElementById('liste-utilisateurs');
+  tbody.innerHTML = '';
 
-      // Injecter les statistiques
-      document.getElementById("livres-circulation").textContent = statsData.livresCirculation;
-      document.getElementById("emprunts-jour").textContent = statsData.empruntsJour;
-      document.getElementById("emprunts-semaine").textContent = statsData.empruntsSemaine;
-      document.getElementById("livres-retard").textContent = statsData.livresRetard;
-      document.getElementById("nouveaux-inscrits").textContent = statsData.nouveauxInscrits;
+  utilisateurs.forEach(user => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${user.nom || '-'}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+      <td>
+        <select onchange="changerRole('${user._id}', this.value)">
+          <option value="">-- Modifier --</option>
+          <option value="admin">Admin</option>
+          <option value="biblio">Bibliothécaire</option>
+          <option value="client">Client</option>
+        </select>
+      </td>
+      <td>
+        <button onclick="supprimerUtilisateur('${user._id}')">Supprimer</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-      // Injecter la liste des membres
-      const listeMembres = document.getElementById("liste-membres");
-      membresData.forEach(membre => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-                <td>${membre.nom}</td>
-                <td>${membre.email}</td>
-                <td>${membre.statut}</td>
-            `;
-        listeMembres.appendChild(row);
-      });
+function filtrerUtilisateurs() {
+  const recherche = document.getElementById('searchInput').value.toLowerCase();
+  const filtres = tousLesUtilisateurs.filter(user =>
+    (user.nom && user.nom.toLowerCase().includes(recherche)) ||
+    (user.role && user.role.toLowerCase().includes(recherche))
+  );
 
-      // Fonction pour générer des rapports
-      function genererRapport(type) {
-        alert(`Génération d'un rapport au format ${type.toUpperCase()}`);
-        // Ajoutez ici la logique pour générer le rapport
+  afficherDansTableau(filtres);
+}
+
+     
+async function changerRole(id, nouveauRole) {
+  const token = localStorage.getItem('token');
+  if (!nouveauRole) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/utilisateurs/${id}/role`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ role: nouveauRole })
+    });
+
+    if (res.ok) {
+      alert("Rôle mis à jour !");
+      afficherUtilisateurs();
+    } else {
+      alert("Erreur lors de la modification du rôle.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function supprimerUtilisateur(id) {
+  const token = localStorage.getItem('token');
+  if (!confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/utilisateurs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + token
       }
+    });
+
+    if (res.ok) {
+      alert("Utilisateur supprimé.");
+      afficherUtilisateurs();
+    } else {
+      alert("Erreur lors de la suppression.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  afficherUtilisateurs();
+});
+
+
       document.getElementById('logoutBtn').addEventListener('click', () => {
         // Supprimer le token du localStorage
         localStorage.removeItem('token');
-
+        localStorage.removeItem('role'); 
         // Rediriger vers la page de connexion
         window.location.href = 'connexion.html';
       });
+
+    </script>
+    <script>
+        async function chargerEmprunts() {
+  const token = localStorage.getItem('token');
+
+  try {
+    console.log('🔄 Chargement des emprunts...');
+    
+    const res = await fetch('http://localhost:5000/api/emprunts', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+
+    console.log('Status réponse:', res.status);
+    
+    // Vérifier si la réponse est OK
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Erreur HTTP:', res.status, errorText);
+      throw new Error(`Erreur ${res.status}: ${errorText}`);
+    }
+
+    const data = await res.json();
+    empruntsOriginaux = data;
+
+
+    // Vérifier que les données sont bien un tableau
+    if (!Array.isArray(data)) {
+      console.error('Les données ne sont pas un tableau:', data);
+      // Si c'est un objet avec une propriété emprunts
+      if (data && Array.isArray(data.emprunts)) {
+        afficherEmprunts(data.emprunts);
+      } else {
+        throw new Error('Format de données incorrect');
+      }
+    } else {
+        const nonRendus = data.filter(e => !e.estRendu);
+        empruntsOriginaux = nonRendus; // 👈 important pour que la recherche fonctionne
+        afficherEmprunts(nonRendus);
+    }
+
+  } catch (err) {
+    console.error("Erreur chargement emprunts", err);
+    
+    // Afficher l'erreur à l'utilisateur
+    const tbody = document.getElementById('emprunts-body');
+    if (tbody) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; color: red; padding: 20px;">
+            ❌ Erreur lors du chargement des emprunts: ${err.message}
+          </td>
+        </tr>
+      `;
+    }
+  }
+}
+
+function afficherEmprunts(emprunts) {
+  
+  const tbody = document.getElementById('emprunts-body');
+  if (!tbody) {
+    console.error('Element emprunts-body non trouvé');
+    return;
+  }
+
+  tbody.innerHTML = '';
+
+  // Vérification de sécurité
+  if (!Array.isArray(emprunts)) {
+    console.error('emprunts n\'est pas un tableau:', emprunts);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; color: red;">
+          Erreur: Données invalides
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  if (emprunts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; color: gray;">
+          📚 Aucun emprunt trouvé
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  emprunts.forEach(e => {
+    try {
+      const estEnRetard = new Date(e.dateRetourPrevue) < new Date();
+      const statut = estEnRetard ? "En retard" : "En cours";
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${e.livre ? e.livre.titre : 'Inconnu'}</td>
+        <td>${e.user ? e.user.email : (e.utilisateur ? e.utilisateur.email : 'Inconnu')}</td>
+        <td>${e.dateEmprunt ? new Date(e.dateEmprunt).toLocaleDateString() : 'Date inconnue'}</td>
+        <td>${e.dateRetourPrevue ? new Date(e.dateRetourPrevue).toLocaleDateString() : 'Date inconnue'}</td>
+        <td style="color:${estEnRetard ? 'red' : 'green'}">${statut}</td>
+        <td>
+        <button onclick="marquerCommeRendu('${e._id}')">✅ Rendu</button>
+        </td>
+        <td>
+            ${estEnRetard ? `<button onclick="reclamerEmprunt('${e._id}')">Réclamer</button>` : '—'}
+        </td>
+
+
+      `;
+
+      tbody.appendChild(tr);
+    } catch (error) {
+      console.error('Erreur affichage emprunt:', error, e);
+    }
+  });
+
+  console.log('✅ Emprunts affichés avec succès');
+}
+let empruntsOriginaux = []; // Stocker tous les emprunts reçus
+function filtrerEmprunts() {
+    const query = document.getElementById('searchEmprunt').value.toLowerCase();
+
+  const filtres = empruntsOriginaux.filter(e => {
+    const utilisateur = e.user?.email?.toLowerCase() || e.utilisateur?.email?.toLowerCase() || '';
+    const dateEmprunt = e.dateEmprunt ? new Date(e.dateEmprunt).toLocaleDateString().toLowerCase() : '';
+    
+    return (
+      !e.estRendu &&
+      (utilisateur.includes(query) || dateEmprunt.includes(query))
+    );
+  });
+
+  afficherEmprunts(filtres);
+}
+async function reclamerTousLesRetards() {
+  const token = localStorage.getItem('token');
+
+  const retards = empruntsOriginaux.filter(e => {
+    return !e.estRendu && new Date(e.dateRetourPrevue) < new Date();
+  });
+
+  if (retards.length === 0) {
+    return alert("🎉 Aucun livre n’est en retard à réclamer !");
+  }
+
+  for (const emprunt of retards) {
+    try {
+      const res = await fetch(`http://localhost:5000/api/emprunts/${emprunt._id}/reclamer`, {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error(`❌ Erreur sur ${emprunt._id}:`, errText);
+      }
+    } catch (err) {
+      console.error("Erreur envoi réclamation:", err);
+    }
+  }
+
+  alert(`📨 ${retards.length} réclamation(s) envoyée(s) avec succès.`);
+}
+
+
+function reclamerEmprunt(idEmprunt) {
+  const token = localStorage.getItem('token');
+  
+  fetch(`http://localhost:5000/api/emprunts/${idEmprunt}/reclamer`, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(`Erreur ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => {
+    alert(data.message || 'Réclamation envoyée');
+    chargerEmprunts(); // Recharger la liste
+  })
+  .catch(err => {
+    console.error('Erreur réclamation:', err);
+    alert('Erreur: ' + err.message);
+  });
+}
+function marquerCommeRendu(idEmprunt) {
+  const token = localStorage.getItem('token');
+
+  fetch(`http://localhost:5000/api/emprunts/${idEmprunt}/rendu`, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error(`Erreur ${res.status}`);
+    return res.json();
+  })
+  .then(data => {
+    alert(data.message || 'Livre marqué comme rendu');
+    chargerEmprunts();
+  })
+  .catch(err => {
+    console.error('Erreur lors du rendu:', err);
+    alert('Erreur: ' + err.message);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('emprunts-body').innerHTML = `
+  <tr><td colspan="6" style="text-align: center;">⏳ Chargement...</td></tr>
+`;
+
+  chargerEmprunts();
+});
+    </script>
+    <script>
+        let pieChartInstance = null;
+
+        async function afficherStatistiquesGenerales() {
+  const token = localStorage.getItem('token');
+
+  try {
+    const [livresRes, utilisateursRes, empruntsRes] = await Promise.all([
+      fetch('http://localhost:5000/api/livres', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      }),
+      fetch('http://localhost:5000/api/utilisateurs', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      }),
+      fetch('http://localhost:5000/api/emprunts', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+    ]);
+
+    const livres = await livresRes.json();
+    const utilisateurs = await utilisateursRes.json();
+    const emprunts = await empruntsRes.json();
+
+    const totalLivres = livres.length;
+    const totalUtilisateurs = utilisateurs.length;
+    const totalEmprunts = emprunts.length;
+    const empruntsEnCours = emprunts.filter(e => !e.estRendu && new Date(e.dateRetourPrevue) >= new Date()).length;
+    const empruntsRendus = emprunts.filter(e => e.estRendu).length;
+    const empruntsEnRetard = emprunts.filter(e => !e.estRendu && new Date(e.dateRetourPrevue) < new Date()).length;
+
+    // Affichage du camembert
+    if (pieChartInstance) {
+  pieChartInstance.destroy(); // Supprime l'ancien graphique
+}
+    const ctx = document.getElementById('myPieChart').getContext('2d');
+   pieChartInstance= new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: [
+          '📚 Livres disponibles',
+          '👥 Utilisateurs',
+          '📖 Total emprunts',
+          '⏳ En cours',
+          '✅ Rendus',
+          '⚠️ En retard'
+        ],
+        datasets: [{
+          label: 'Statistiques générales',
+          data: [
+            totalLivres,
+            totalUtilisateurs,
+            totalEmprunts,
+            empruntsEnCours,
+            empruntsRendus,
+            empruntsEnRetard
+          ],
+          backgroundColor: [
+            '#8B5E3C',
+            '#069AF3',
+            '#C9A0DC',
+            '#FFA500',
+            '#4CAF50',
+            '#FF0000'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              font: {
+                size: 16
+              },
+              generateLabels: (chart) => {
+                const data = chart.data;
+                if (!data.datasets.length) return [];
+                const dataset = data.datasets[0];
+                return data.labels.map((label, i) => ({
+                  text: `${label} (${dataset.data[i]})`,
+                  fillStyle: dataset.backgroundColor[i],
+                  strokeStyle: dataset.backgroundColor[i],
+                  lineWidth: 1,
+                  hidden: isNaN(dataset.data[i]) || chart.getDataVisibility(i) === false,
+                  index: i
+                }));
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: '📊 Statistiques générales de la bibliothèque',
+            font: {
+              size: 22
+            },
+            padding: 20
+          }
+        }
+      }
+    });
+
+  } catch (err) {
+    console.error('Erreur lors du chargement des statistiques:', err);
+    alert('Erreur chargement statistiques : ' + err.message);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  chargerEmprunts();
+  afficherUtilisateurs();
+  afficherStatistiquesGenerales(); // 👈 Ajout ici
+});
 
     </script>
 </body>

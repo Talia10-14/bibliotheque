@@ -9,4 +9,4 @@ const utilisateurSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin','biblio'], default: 'user' }  // rôle par défaut = user
 });
 
-module.exports = mongoose.model('utilisateur', utilisateurSchema);
+module.exports = mongoose.model('Utilisateur', utilisateurSchema);

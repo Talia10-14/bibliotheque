@@ -26,6 +26,9 @@
                     <a class="nav-link " aria-current="page" href="accueil.html">Accueil</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="tbperso.html">Tableau de bord</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="tbperso.html">Statistiques</a>
                 </li>
                 <li class="nav-item">
@@ -104,45 +107,12 @@
     </section>
 
     <section class="livres-section">
-  <h2>Livres disponibles</h2>
-  <div class="livres-container">
-    <div class="livre-card">
-      <img src="https://via.placeholder.com/150x200" alt="Couverture  du Livre ">
-      <h3>Titre </h3>
-      <p class="auteur">Auteur : Jean Dupont</p>
-      <p class="description">Ce livre explore les mystères de l'univers à travers une aventure palpitante.</p>
-      <button>Emprunter</button>
-    </div>
-    <div class="livre-card">
-      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
-      <h3>Titre </h3>
-      <p class="auteur">Auteur : Marie Curie</p>
-      <p class="description">Une introduction à la science moderne, accessible à tous.</p>
-      <button>Emprunter</button>
-    </div>
-    <div class="livre-card">
-      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
-      <h3>Titre </h3>
-      <p class="auteur">Auteur : Albert Camus</p>
-      <p class="description">Un classique de la philosophie moderne sur l'absurde et la condition humaine.</p>
-      <button>Emprunter</button>
-    </div>
-    <div class="livre-card">
-      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
-      <h3>Titre </h3>
-      <p class="auteur">Auteur : Jules Verne</p>
-      <p class="description">Voyage extraordinaire au cœur des terres inexplorées du XIXe siècle.</p>
-      <button>Emprunter</button>
-    </div>
-    <div class="livre-card">
-      <img src="https://via.placeholder.com/150x200" alt="Couverture du Livre ">
-      <h3>Titre </h3>
-      <p class="auteur">Auteur : Victor Hugo</p>
-      <p class="description">Un roman bouleversant sur la misère, l'espoir et la justice sociale.</p>
-      <button>Emprunter</button>
-    </div>
-  </div>
-</section>
+        <h2>Livres disponibles</h2>
+        <div class="livres-container" id="liste-livres">
+          <!-- Les cartes seront injectées ici par JS -->
+        </div>
+      </section>
+      
 
     </main>
      </div>
@@ -154,16 +124,97 @@
         <p>© 2023 BiblioTech. Tous droits réservés.</p>
         <p><a href="#conditions">Conditions d'utilisation</a> | <a href="#confidentialite">Politique de confidentialité</a></p>
     </footer>
+    <script>
+        let tousLesLivres = [];
+      
+        function creerCarteLivre(livre) {
+          const div = document.createElement('div');
+          div.className = 'livre-card';
+      
+          div.innerHTML = `
+            <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+            <h3>${livre.titre}</h3>
+            <p class="auteur"><strong>Auteur :</strong> ${livre.auteur}</p>
+            <p class="description">${livre.description || "Pas de description."}</p>
+            <button onclick="emprunterLivre('${livre._id}')">Emprunter</button>
+          `;
+      
+          return div;
+        }
+      
+        async function emprunterLivre(livreId) {
+          const token = localStorage.getItem('token');
+      
+          try {
+            const res = await fetch('http://localhost:5000/api/emprunts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              },
+              body: JSON.stringify({ livre: livreId })
+            });
+      
+            const data = await res.json();
+      
+            if (!res.ok) {
+              throw new Error(data.message || 'Erreur lors de l\'emprunt');
+            }
+      
+            alert('Livre emprunté avec succès !');
+            window.location.href = 'tbperso.html';
+      
+          } catch (err) {
+            alert(err.message);
+          }
+        }
+      
+        function afficherLivres(livres) {
+          const container = document.getElementById('liste-livres');
+          container.innerHTML = ''; // Vide le conteneur
+      
+          if (livres.length === 0) {
+            container.innerHTML = '<p>Aucun livre trouvé.</p>';
+            return;
+          }
+      
+          livres.forEach(livre => {
+            const carte = creerCarteLivre(livre);
+            container.appendChild(carte);
+          });
+        }
+      
+        function filtrerLivres() {
+          const recherche = document.getElementById('search-input').value.toLowerCase();
+      
+          const resultat = tousLesLivres.filter(livre =>
+            livre.titre.toLowerCase().includes(recherche) ||
+            livre.auteur.toLowerCase().includes(recherche) ||
+            (livre.description && livre.description.toLowerCase().includes(recherche))
+          );
+      
+          afficherLivres(resultat);
+        }
+      
+        document.addEventListener('DOMContentLoaded', async () => {
+          const res = await fetch('http://localhost:5000/api/livres');
+          tousLesLivres = await res.json();
+          afficherLivres(tousLesLivres);
+        });
+      
+        document.getElementById('search-input').addEventListener('input', filtrerLivres);
 
-   <script>
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-  // Supprimer le token du localStorage
-  localStorage.removeItem('token');
-
-  // Rediriger vers la page de connexion
-  window.location.href = 'connexion.html';
-});
-
-   </script>
+        // Active aussi la recherche avec la touche "Entrée"
+        document.getElementById('search-input').addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') filtrerLivres();
+        });
+      
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          window.location.href = 'connexion.html';
+        });
+      </script>
+      
 </body>
 </html>
