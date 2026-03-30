@@ -1,104 +1,69 @@
-// index.js
+// index.js - Simplified for Vercel
 
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const path = require('path');
-
-dotenv.config();
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
+app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
 app.use(express.json());
-
-// Charger les modèles
-let mongoConnected = false;
-
-try {
-  const User = require('./models/utilisateur');
-  const Livre = require('./models/livre');
-} catch (err) {
-  console.warn('⚠️ Modèles non disponibles au démarrage:', err.message);
-}
-
-// Connexion à MongoDB (async, non-bloquant)
-if (process.env.MONGO_URI) {
-  mongoose.connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 5000,
-  })
-  .then(() => {
-    mongoConnected = true;
-    console.log('✅ Connecté à MongoDB');
-  })
-  .catch((err) => {
-    console.warn('⚠️ MongoDB non disponible:', err.message);
-  });
-} else {
-  console.warn('⚠️ MONGO_URI non défini');
-}
-
-// Routes
-const authRoutes = require('./routes/auth');
-const empruntRoutes = require('./routes/emprunt');
-const livresRoute = require('./routes/livres');
-const utilisateursRoute = require('./routes/utilisateurs');
-
-app.use('/api/utilisateurs', utilisateursRoute);
-
-app.use('/api/utilisateurs', utilisateursRoute);
-app.use('/api/livres', livresRoute);
-app.use('/api/auth', authRoutes);
-app.use('/api/emprunts', empruntRoutes);
-
-// Serveur statique pour uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Servir les fichiers statiques du frontend
-const frontendPath = path.join(__dirname, '../frontend');
-app.use(express.static(frontendPath));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'API en ligne ✅',
-    mongoConnected: mongoConnected
-  });
+  res.json({ status: 'OK', time: new Date().toISOString() });
 });
 
-// Route racine
+// Load routes safely
+try {
+  app.use('/api/auth', require('./routes/auth'));
+} catch (e) {
+  console.warn('⚠️ Auth failed:', e.message);
+}
+
+try {
+  app.use('/api/livres', require('./routes/livres'));
+} catch (e) {
+  console.warn('⚠️ Livres failed:', e.message);
+}
+
+try {
+  app.use('/api/utilisateurs', require('./routes/utilisateurs'));
+} catch (e) {
+  console.warn('⚠️ Utilisateurs failed:', e.message);
+}
+
+try {
+  app.use('/api/emprunts', require('./routes/emprunt'));
+} catch (e) {
+  console.warn('⚠️ Emprunt failed:', e.message);
+}
+
+// Serve frontend static files
+const frontendPath = path.join(__dirname, '../frontend');
+app.use(express.static(frontendPath));
+
+// Home page
 app.get('/', (req, res) => {
   res.sendFile(path.join(frontendPath, 'accueil.html'));
 });
 
-// Fallback pour SPA
+// SPA fallback
 app.use('*', (req, res) => {
   if (req.url.startsWith('/api')) {
-    res.status(404).json({ error: 'API endpoint not found' });
-  } else {
-    res.sendFile(path.join(frontendPath, 'accueil.html'));
+    return res.status(404).json({ error: 'Endpoint not found' });
   }
+  res.sendFile(path.join(frontendPath, 'accueil.html'));
 });
 
-console.log('✔️ Routes chargées');
+console.log('✅ App ready');
 
-// Exporter pour Vercel
 module.exports = app;
 
-// Lancer localement seulement
+// Local development only
 if (process.env.NODE_ENV !== 'production') {
-  const server = app.listen(PORT, () => {
-    console.log(`🚀 Serveur lancé sur le port ${PORT}`);
-  });
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`🚀 Listening on ${PORT}`));
 }
-
-// Lancer le serveur (local development)
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`🚀 Serveur lancé sur le port ${PORT}`);
-  });
-}
-
