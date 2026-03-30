@@ -51,7 +51,7 @@ app.use('/api/emprunts', empruntRoutes);
 app.use('/uploads', express.static('uploads'));
 
 // Servir les fichiers statiques du frontend
-const frontendPath = path.join(__dirname, '../frontend');
+const frontendPath = path.join(__dirname, process.env.NODE_ENV === 'production' ? '../frontend' : '../frontend');
 app.use(express.static(frontendPath));
 
 // Route pour servir accueil.html par défaut
