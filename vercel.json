@@ -12,24 +12,8 @@
       "dest": "backend/index.js"
     },
     {
-      "src": "/uploads/(.*)",
-      "dest": "backend/uploads/$1"
-    },
-    {
-      "src": "/(.*\\.(?:css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot))",
-      "dest": "frontend/$1",
-      "headers": {
-        "cache-control": "public, max-age=3600"
-      }
-    },
-    {
-      "src": "/(?!api).*",
-      "dest": "frontend/accueil.html"
+      "src": "/(.*)",
+      "dest": "frontend/$1"
     }
-  ],
-  "env": {
-    "MONGO_URI": "@MONGO_URI",
-    "JWT_SECRET": "@JWT_SECRET",
-    "FRONTEND_URL": "@FRONTEND_URL"
-  }
+  ]
 }
