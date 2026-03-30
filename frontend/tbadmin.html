@@ -179,7 +179,7 @@ form.addEventListener('submit', async e => {
     const token = localStorage.getItem('token');
     console.log("Token envoyé :", token);
 
-    const res = await fetch('http://localhost:5000/api/livres', { 
+    const res = await fetch('/api/livres', { 
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -205,7 +205,7 @@ async function afficherUtilisateurs() {
   
 
   try {
-    const res = await fetch('http://localhost:5000/api/utilisateurs', {
+    const res = await fetch('/api/utilisateurs', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
 
@@ -263,7 +263,7 @@ async function changerRole(id, nouveauRole) {
   if (!nouveauRole) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/utilisateurs/${id}/role`, {
+    const res = await fetch(`/api/utilisateurs/${id}/role`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -288,7 +288,7 @@ async function supprimerUtilisateur(id) {
   if (!confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/utilisateurs/${id}`, {
+    const res = await fetch(`/api/utilisateurs/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + token
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     console.log('🔄 Chargement des emprunts...');
     
-    const res = await fetch('http://localhost:5000/api/emprunts', {
+    const res = await fetch('/api/emprunts', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
 
@@ -468,7 +468,7 @@ async function reclamerTousLesRetards() {
 
   for (const emprunt of retards) {
     try {
-      const res = await fetch(`http://localhost:5000/api/emprunts/${emprunt._id}/reclamer`, {
+      const res = await fetch(`/api/emprunts/${emprunt._id}/reclamer`, {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + token }
       });
@@ -489,7 +489,7 @@ async function reclamerTousLesRetards() {
 function reclamerEmprunt(idEmprunt) {
   const token = localStorage.getItem('token');
   
-  fetch(`http://localhost:5000/api/emprunts/${idEmprunt}/reclamer`, {
+  fetch(`/api/emprunts/${idEmprunt}/reclamer`, {
     method: 'POST',
     headers: { 'Authorization': 'Bearer ' + token }
   })
@@ -511,7 +511,7 @@ function reclamerEmprunt(idEmprunt) {
 function marquerCommeRendu(idEmprunt) {
   const token = localStorage.getItem('token');
 
-  fetch(`http://localhost:5000/api/emprunts/${idEmprunt}/rendu`, {
+  fetch(`/api/emprunts/${idEmprunt}/rendu`, {
     method: 'POST',
     headers: { 'Authorization': 'Bearer ' + token }
   })
@@ -545,13 +545,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
     const [livresRes, utilisateursRes, empruntsRes] = await Promise.all([
-      fetch('http://localhost:5000/api/livres', {
+      fetch('/api/livres', {
         headers: { 'Authorization': 'Bearer ' + token }
       }),
-      fetch('http://localhost:5000/api/utilisateurs', {
+      fetch('/api/utilisateurs', {
         headers: { 'Authorization': 'Bearer ' + token }
       }),
-      fetch('http://localhost:5000/api/emprunts', {
+      fetch('/api/emprunts', {
         headers: { 'Authorization': 'Bearer ' + token }
       })
     ]);

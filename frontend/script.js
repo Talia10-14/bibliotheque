@@ -161,7 +161,7 @@ async function chargerLivresPhysiques() {
     }
 
     try {
-        const response = await fetch('http://localhost:5000/api/livres');
+        const response = await fetch('/api/livres');
         const data = await response.json();
         
         // L'API retourne { livres, pagination } donc on récupère just le tableau
@@ -193,7 +193,7 @@ function afficherLivresPhysiques(page = 0) {
         
 
         div.innerHTML = `
-              <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+              <img src="/uploads/${livre.fichier}" alt="Face du livre" />
             <h4>${livre.titre}</h4>
             <p>${livre.auteur}</p>
             <div class="book-actions">

@@ -132,7 +132,7 @@
           div.className = 'livre-card';
       
           div.innerHTML = `
-            <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+            <img src="/api/uploads/${livre.fichier}" alt="Face du livre" />
             <h3>${livre.titre}</h3>
             <p class="auteur"><strong>Auteur :</strong> ${livre.auteur}</p>
             <p class="description">${livre.description || "Pas de description."}</p>
@@ -146,7 +146,7 @@
           const token = localStorage.getItem('token');
       
           try {
-            const res = await fetch('http://localhost:5000/api/emprunts', {
+            const res = await fetch('/api/emprunts', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -197,7 +197,7 @@
         }
       
         document.addEventListener('DOMContentLoaded', async () => {
-          const res = await fetch('http://localhost:5000/api/livres');
+          const res = await fetch('/api/livres');
           tousLesLivres = await res.json();
           afficherLivres(tousLesLivres);
         });

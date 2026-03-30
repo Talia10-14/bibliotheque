@@ -182,7 +182,7 @@ form.addEventListener('submit', async e => {
     const token = localStorage.getItem('token');
     console.log("Token envoyé :", token);
 
-    const res = await fetch('http://localhost:5000/api/livres', { 
+    const res = await fetch('/api/livres', { 
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const id = new URLSearchParams(window.location.search).get('id');
   if (!id) return;
 
-  const res = await fetch(`http://localhost:5000/api/livres/${id}`);
+  const res = await fetch(`/api/livres/${id}`);
   const livre = await res.json();
 
   const container = document.getElementById('details-livre');
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 async function afficherTousLesLivres() {
   try {
-    const res = await fetch('http://localhost:5000/api/livres');
+    const res = await fetch('/api/livres');
     tousLesLivres = await res.json();
 afficherLivresFiltrés(tousLesLivres);
 
@@ -233,7 +233,7 @@ afficherLivresFiltrés(tousLesLivres);
 
       div.innerHTML = 
       `
-      <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+      <img src="/api/uploads/${livre.fichier}" alt="Face du livre" />
         <h3>${livre.titre}</h3>
         <p><strong>Auteur :</strong> ${livre.auteur}</p>
         <p><strong>Catégorie :</strong> ${livre.categorie}</p>
@@ -254,7 +254,7 @@ afficherLivresFiltrés(tousLesLivres);
 
       tr.innerHTML = `
         <td>
-           <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+           <img src="/api/uploads/${livre.fichier}" alt="Face du livre" />
           <p>${livre.titre}</p>
         </td>
         <td>
@@ -291,7 +291,7 @@ function afficherLivresFiltrés(livres) {
     const div = document.createElement('div');
     div.className = 'd2';
     div.innerHTML = `
-      <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+      <img src="/api/uploads/${livre.fichier}" alt="Face du livre" />
       <h3>${livre.titre}</h3>
       <p><strong>Auteur :</strong> ${livre.auteur}</p>
       <p><strong>Catégorie :</strong> ${livre.categorie}</p>
@@ -310,7 +310,7 @@ function afficherLivresFiltrés(livres) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>
-      <img src="http://localhost:5000/uploads/${livre.fichier}" alt="Face du livre" />
+      <img src="/api/uploads/${livre.fichier}" alt="Face du livre" />
         <p>${livre.titre}</p>
       </td>
       <td>${livre.auteur}</td>
@@ -374,7 +374,7 @@ formModifier.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch(`http://localhost:5000/api/livres/${idLivreEnModification}`, {
+    const res = await fetch(`/api/livres/${idLivreEnModification}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -403,7 +403,7 @@ async function supprimerLivre(idLivre) {
   if (!confirm("Es-tu sûr de vouloir supprimer ce livre ?")) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/livres/${idLivre}`, {
+    const res = await fetch(`/api/livres/${idLivre}`, {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + token // ajoute ici ton token si authentification
