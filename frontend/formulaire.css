@@ -1,0 +1,247 @@
+body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 10px;
+    color: #000;
+    background: linear-gradient(135deg, #ebeded, #ff6200);
+    font-size: 18px;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(" ");
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+} 
+
+.d1 {
+    width: 490px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #725f5f80;
+    backdrop-filter: blur(8px);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #341f1f;
+}
+
+.inp {
+    position: relative;
+    margin: 15px 0;
+    color: #000000;
+}
+
+
+.inp input {
+    width: 100%;
+    height: 40px;
+    color: #000000;
+    border-radius: 15px;
+    background: transparent;
+    border: 1px solid #725f5f80;
+    font-size: 20px;
+}
+/* 
+.inp input:focus+ label,
+.inp input:not(:placeholder-shown) + label {
+    font-size: 14px;
+    color: #000000;
+    border: none;
+   }  */
+
+
+.d1 a {
+    color: #290000;
+    text-decoration: underline;
+}
+
+button {
+    background: #6a6461f5;
+    color: #f3eaea;
+    text-align: center;
+    font-weight: 60;
+    border: none;
+    /* padding: 15px 20px; */
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+    margin-top: 10px;
+    margin: 15px;
+    height: 40px;
+}
+button:hover {
+    background: #171717;
+    color: #fff;
+}
+.register {
+    text-align: center;
+    margin-top: 30px;
+    color: #000000;
+}
+
+/* Password visibility toggle */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #725f5f80;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #ff6200;
+    background: none;
+}
+
+/* ============================================
+   RESPONSIVITÉ
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .d1 {
+        width: 90%;
+        padding: 20px;
+    }
+
+    form {
+        gap: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .inp input {
+        height: 35px;
+        font-size: 16px;
+    }
+
+    button {
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
+    .d1 {
+        width: 95%;
+        padding: 15px;
+        border: 1px solid #725f5f60;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .inp {
+        margin: 10px 0;
+    }
+
+    .inp input {
+        height: 40px;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button {
+        height: 40px;
+        font-size: 13px;
+        margin: 10px 0;
+    }
+
+    .register {
+        margin-top: 20px;
+    }
+
+    .register a {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .d1 {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    form {
+        margin-bottom: 10px;
+    }
+
+    .inp {
+        margin: 8px 0;
+    }
+
+    .inp input {
+        height: 38px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+
+    button {
+        height: 38px;
+        font-size: 12px;
+        margin: 8px 0;
+        border-radius: 10px;
+    }
+
+    button:hover {
+        background: #171717;
+    }
+
+    .password-container input {
+        padding-right: 35px;
+    }
+
+    .toggle-password {
+        right: 8px;
+        font-size: 14px;
+    }
+}

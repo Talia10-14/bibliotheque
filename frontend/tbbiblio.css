@@ -1,0 +1,505 @@
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    height: 80px;
+}
+
+header span {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color:  #ff6200;
+    margin: 0 auto;
+}
+
+
+.logo i {
+    font-size: 2rem;
+    color:  #ff6200;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: calc(100vh - 400px);
+}
+
+.sidebar {
+    min-width: 300px;
+    background-color: whitesmoke;
+    color: rgb(0, 0, 0);
+    padding-top: 20px;
+    height: 100vh;
+    position: sticky;
+    top: 90px;
+}
+
+.sidebar .nav-link {
+    color: rgb(0, 0, 0);
+    padding: 12px 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #f4f4f4;
+}
+
+.sidebar .nav-link.active {
+    background-color: #ff6200;
+    font-weight: bold;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+
+main {
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0;
+}
+
+h2 {
+    color:  #ff6200;
+    border-bottom: 2px solid  #ff6200;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+}
+/* Style pour les tableaux */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+table thead {
+    background-color:  #ff6200;
+    color: white;
+}
+
+table th,
+table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+    color:black;
+}
+
+table th {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+table td {
+    font-size: 0.9rem;
+}
+
+/* Style pour les boutons */
+button {
+    background-color:  #ff6200;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease;
+}
+#annuler {
+    background-color: whitesmoke;
+    color: black;
+}
+#annuler:hover {
+    background-color: #ff6200;
+    color:white;
+}
+button:hover {
+    background-color:  #cdc1b9;
+    color: black;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #7b726c;
+    opacity: 0.9;
+    color: #fff;
+    text-align: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.footer-logo i {
+    font-size: 1.5em;
+    color:  #ff6200;
+    margin-right: 10px;
+}
+
+.footer-logo span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.footer a {
+    color:  #ff6200;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVITÉ
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .sidebar {
+        min-width: 250px;
+    }
+
+    header span {
+        font-size: 1.2rem;
+    }
+
+    main section {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        text-align: center;
+    }
+
+    header span {
+        font-size: 1.1rem;
+        margin: 10px auto;
+    }
+
+    .sidebar {
+        min-width: 100%;
+        height: auto;
+        position: static;
+        padding: 10px 0;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+    }
+
+    .nav-item {
+        margin: 5px;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        display: inline-block;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    main section {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    table {
+        font-size: 0.85em;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.75em;
+    }
+
+    button, .btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+        width: auto;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .footer {
+        flex-direction: column;
+        padding: 15px 10px;
+    }
+
+    .footer-logo {
+        margin-bottom: 10px;
+    }
+
+    .footer p {
+        font-size: 0.9em;
+    }
+
+    form {
+        padding: 10px;
+    }
+
+    input, select, textarea {
+        font-size: 0.9em;
+        padding: 8px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px;
+    }
+
+    header span {
+        font-size: 0.9rem;
+    }
+
+    header i {
+        font-size: 1.5rem;
+    }
+
+    .sidebar {
+        padding: 5px 0;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .nav-item {
+        width: 100%;
+        margin: 2px 0;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.8em;
+    }
+
+    button {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    table {
+        font-size: 0.8em;
+    }
+
+    main {
+        padding: 5px;
+    }
+
+    main section {
+        padding: 8px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 10px;
+        text-align: center;
+    }
+
+    form {
+        padding: 8px;
+    }
+
+    input, select, textarea {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+
+    label {
+        font-size: 0.85em;
+    }
+}
+
+#searchEmprunt{
+    width: 300px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: 0.3s ease;
+    box-shadow: 6px 2px 5px rgba(0, 0, 0, 0.972);
+  }
+    #searchEmprunt::placeholder {
+        color: #999;
+        font-style: italic;
+    }
+    #searchEmprunt:focus {
+            box-shadow: 0 2px 5px rgba(245, 103, 16, 0.1);
+            background-color: #fff;
+            border: 1px solid #ff6200;
+        }
+
+.modal {
+    position: absolute;
+     top: 0;
+right: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    width: 100%;
+
+}
+.hidden {
+    display: none;
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    height: auto;
+    max-width: 90%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-content input{
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}

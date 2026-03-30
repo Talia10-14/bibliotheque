@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<htm lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="formulaire.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Inscription</title>
+</head>
+<header>
+
+</header>
+<body>
+    <main>
+        <div class="d1">
+            <form method="post" action="http://www.foo.com" name="monFormulaire" autocomplete="on" id="inscription">
+                <h1>INSCRIPTION</h1>
+                <div class="inp">
+                    <input id="name" name="username" type="text" placeholder="Entrer votre nom">
+                </div>
+                <div class="inp">
+                    <input id="firstname" name="userfirst" type="text" placeholder="Entrer vos prénoms">
+                </div>
+                <div class="inp">
+                    <div class="inp">
+                    <input id="email" name="email" type="email" placeholder="Entrer votre email">
+                    </div>
+                    <div class="inp password-container">
+                        <input name="MotDePasse" type="password" placeholder="Créer un mot de passe" id="motDePasse">
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('motDePasse', event)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="inp password-container">
+                    <input name="MotDePasse" type="password" placeholder="Confirme le mot de passe" id="mdp">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('mdp', event)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <button class="button" type="submit">Inscrivez-vous</button>
+                <div class="register">
+                    Vous avez déjà un compte?
+                    <a href="connexion.html">Connectez-Vous</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+<footer>
+
+</footer>
+<script>
+    function togglePasswordVisibility(fieldId, event) {
+        if (event) event.preventDefault();
+        
+        const input = document.getElementById(fieldId);
+        const button = event ? event.target.closest('.toggle-password') : document.querySelector('.toggle-password');
+        const icon = button ? button.querySelector('i') : null;
+        
+        if (!input || !button || !icon) return;
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
+    document.getElementById('inscription').addEventListener('submit', async(e) =>{
+        e.preventDefault();
+        let nom = document.getElementById('name').value;
+        let prenom = document.getElementById('firstname').value;
+        let motdepasse = document.getElementById('motDePasse').value;
+        let email = document.getElementById('email').value;
+        let confirmation = document.getElementById('mdp').value;
+
+        // Validation des champs
+        if (!nom || !prenom || !email || !motdepasse || !confirmation) {
+            alert("Tous les champs sont obligatoires.");
+            return;
+        }
+
+        // Vérifier que les mots de passe correspondent
+        if (confirmation !== motdepasse) {
+            alert("Les mots de passe ne correspondent pas.");
+            return;
+        }
+
+        const response = await fetch('http://localhost:5000/api/auth/inscription', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nom, prenom, email, motdepasse })
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            alert(data.message);
+            // Redirection vers connexion après succès
+            window.location.href = 'connexion.html';
+        } else {
+            alert('Erreur: ' + data.message);
+        }
+    });
+</script>
+</html>

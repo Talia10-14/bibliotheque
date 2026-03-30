@@ -1,0 +1,241 @@
+.categories {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.categories h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.category-tab {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#all-categories-button{
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#all-categories-button:hover{
+    background-color: #fff;
+}
+.category-tab.active {
+    background-color: #ff6200;
+    color: #fff;
+}
+
+.category-tab:hover {
+    background-color: #ff6200;
+    color: #fff;
+}
+
+.category-selects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.category-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-group label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.category-group select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.category-group select:focus {
+    border-color: #ff6200;
+    outline: none;
+}
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 50%;
+}
+
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-box button {
+    background-color: #ff6200;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-box button:hover {
+    background-color: black;
+}
+h2{
+    text-align: center;
+}
+.livres-section {
+  margin-top: 2rem;
+  padding: 0 2rem;
+
+}
+
+.livres-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  padding: 2rem 0;
+}
+
+@media (max-width: 1200px) {
+  .livres-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 cartes sur moyen écran */
+  }
+}
+
+@media (max-width: 900px) {
+  .livres-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 cartes sur tablette */
+  }
+}
+
+@media (max-width: 600px) {
+  .livres-container {
+    grid-template-columns: 1fr; /* 1 carte sur mobile */
+  }
+}
+
+.livre-card {
+  background-color: #fff;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.livre-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.livre-card img {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.livre-card h3 {
+  color: #ff6200;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.livre-card .auteur {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.livre-card .description {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: justify;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.livre-card button {
+  padding: 0.6rem 1.2rem;
+  background-color: #ff6200;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.livre-card button:hover {
+  background-color: black;
+}
+
+.sidebar {
+  min-width: 300px;
+  background-color: whitesmoke;
+  color: rgb(0, 0, 0);
+  padding-top: 20px;
+  height: 100vh;
+  position: sticky;
+  top: 90px;
+}
+
+.sidebar .nav-link {
+  color: rgb(0, 0, 0);
+  padding: 12px 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #c4c1c1;
+}
+
+.sidebar .nav-link.active {
+  background-color: #ff6200;
+  font-weight: bold;
+}
