@@ -1,12 +1,18 @@
 {
   "version": 2,
+  "buildCommand": "cd backend && npm install && cd ../frontend && ls -la",
   "builds": [
     {
       "src": "backend/index.js",
       "use": "@vercel/node",
       "config": {
-        "maxDuration": 60
+        "maxDuration": 60,
+        "includeFiles": ["backend/**"]
       }
+    },
+    {
+      "src": "frontend/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -15,10 +21,25 @@
       "dest": "backend/index.js"
     },
     {
+      "src": "/uploads/(.*)",
+      "dest": "backend/uploads/$1"
+    },
+    {
+      "src": "/(.*\\.(?:css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf))",
+      "dest": "frontend/$1"
+    },
+    {
+      "src": "/(?!api).*",
+      "dest": "frontend/accueil.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
   ],
+  "powers": {
+    "incrementalStatic": true
+  },
   "env": {
     "MONGO_URI": "@MONGO_URI",
     "JWT_SECRET": "@JWT_SECRET",

@@ -50,16 +50,38 @@ app.use('/api/auth', authRoutes);
 app.use('/api/emprunts', empruntRoutes);
 app.use('/uploads', express.static('uploads'));
 
+// Servir les fichiers statiques du frontend
+const frontendPath = path.join(__dirname, '../frontend');
+app.use(express.static(frontendPath));
 
-
-// Route test
+// Route pour servir accueil.html par défaut
 app.get('/', (req, res) => {
-  res.send('API en ligne ✅');
+  res.sendFile(path.join(frontendPath, 'accueil.html'));
 });
+
+// Route test API
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'API en ligne ✅' });
+});
+
+// Fallback pour toutes les autres routes (SPA)
+app.get('*', (req, res) => {
+  if (req.url.startsWith('/api')) {
+    res.status(404).json({ error: 'API endpoint not found' });
+  } else {
+    res.sendFile(path.join(frontendPath, 'accueil.html'));
+  }
+});
+
 console.log('✔️ Routes auth chargées');
 
-// Lancer le serveur
-app.listen(PORT, () => {
-  console.log(`🚀 Serveur lancé sur le port ${PORT}`);
-});
+// Exporter pour Vercel
+module.exports = app;
+
+// Lancer le serveur (local development)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Serveur lancé sur le port ${PORT}`);
+  });
+}
 
